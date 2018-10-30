@@ -1,0 +1,118 @@
+%===================================== CHAP 3 =================================
+
+\chapter{Methodology}
+
+\section{Information demand and supply}
+Prediction variables can be split into two categories: information demand and information supply. Our supply variable is news count, while our demand variables are Wikipedia views and different variations of Google trend searches. In this chapter we will explore how these variables are related, and which of them are expected to carry relevant information for determining price/volatility/volume. 
+
+\subsection{Measures of information demand}
+\textcolor{red}{ Previous research has used several different measures for information demand. Among the most popular are Wikipedia views as used by REFERENCE and different versions of Google trends data. To collect Google trends data a keyword (or concept) is needed for each company. Several approaches to selecting keywords have been used. REFERENCE used tickers for companies, this is based on ARGUMENTS. REFERENCE used search terms based on ARGUMEMTS. }
+\\\\
+\textcolor{red}{ Recently another option has been made possible. Google has introduced "concepts" in the trends search engine. When searching for keywords, only searches matching the specific spelling and language is returned. this can be a problem if the company name is hard to spell, or is used in different way. "Concepts" tries to overcome this problem by grouping all keywords and translations relevant to a specific "concept" together. This gives a far broader and potentially more accurate picture of the interest in the "concept". One type of "concept" is "company". \ }
+\\\\
+\textcolor{red}{ Since there exist little empirical evidence on which keywords provides the most relevant information for stock market prediction we have collected several and will be comparing them. In our current we have collected these trend variables: }
+\begin{itemize}
+\item Ticker trend - using each companies stock ticker as a keyword
+\item Search term trend - \textcolor{red}{ HAAKON KAN DU SKRIVE HVA VI EGENTLIG GJORDE HER}
+\item Concept trend - we found the company id used by Google to represent each company. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company was used instead. For a complete reference, see appendix
+\end{itemize}
+
+A simple correlation test on the data set reveals some basic structures in the variables. As expected search term trends and concept trends are highly correlated. This is expected since concepts trends consist of several similar search terms. A bit more surprisingly, there is strong correlation between concept trends and Wikipedia views on a daily basis. This strengthens our hypothesis that both variables can be used as indicators of overall interest in or information demand for a company. 
+\\\\
+Ticker trends has a low correlation to concept and search term trends. This indicates that stock information demand does not follow the same patter as general company wide information demand. In upcoming chapters we will look at fixed effects models to decide which variables are best fit to determine stock market movements, and whether some of them can be excluded without a loss of accuracy.
+\\\\
+News count also has a quite low correlation coefficient (~20\%). This is not entirely m surprising as there is likely some lag between information demand and supply.   
+
+
+\begin{table}[]
+\caption{Pearson correlation for log-median normalized daily demand variables} \label{tab:inf_demand_cor_daily} 
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllll}
+\hline
+ & wiki & concept\_trend & search\_term\_trend & ticker\_trend & news\_count \\
+wiki & 1,00 & 0,41 & 0,32 & 0,18 & 0,18 \\
+concept\_trend & 0,41 & 1,00 & 0,53 & 0,19 & 0,20 \\
+search\_term\_trend & 0,32 & 0,53 & 1,00 & 0,19 & 0,16 \\
+ticker\_trend & 0,18 & 0,19 & 0,19 & 1,00 & 0,18 \\
+news\_count & 0,18 & 0,20 & 0,16 & 0,18 & 1,00 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\caption{Pearson correlation for log-median normalized weekly demand variables} \label{tab:inf_demand_cor_weekly} 
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllll}
+\hline
+ & wiki & concept\_trend & search\_term\_trend & ticker\_trend & news\_count \\
+wiki & 1,00 & 0,12 & 0,11 & 0,02 & 0,09 \\
+concept\_trend & 0,12 & 1,00 & 0,76 & 0,27 & 0,14 \\
+search\_term\_trend & 0,11 & 0,76 & 1,00 & 0,27 & 0,15 \\
+ticker\_trend & 0,02 & 0,27 & 0,27 & 1,00 & 0,14 \\
+news\_count & 0,09 & 0,14 & 0,15 & 0,14 & 1,00 \\ \hline
+
+\end{tabular}%
+}
+\end{table}
+
+
+
+\subsection{Causal relationships between demand and supply}
+To start out we will explore the relationship between demand and supply variables. First we will look into whether one of the variables seems to be causing the other. There are several possible scenarios:
+\begin{itemize}
+\item Information demand causing information supply - i.e. when people start searching for news about a topic the news sources start generating news on it
+\item Information supply causing demand - I.e. when a news article is written about a topic, people want to read more and start searching/demanding news
+\item A relationship going both ways - i.e. news articles makes people search, and high search volumes leads to more news articles
+
+\end{itemize}
+To indicate which relationships our variables contain we  ran granger causality tests. We calculated p-values for the entire dataset as suggested by \cite{DUMIT}, and provide a count of the number of companies with significant values. The results are listed in table \ref{tab:gr_caus_daily} and table \ref{tab:gr_caus_weekly} for daily and weekly data. We have chosen a lag length of 4  periods. 
+\\\\
+For daily data the p-values indicates that there is bi-directional causal relationship, for at least one company, for all combinations of demand and supply variables. The causal relationships seems to be of similar strength in both directions. Since the relationship is bidirectional it is likely that both demand and supply variables carry relevant information and none of them can be dropped based on this test. 
+\\\\
+The p-values are testing the null hypothesis "none of the companies have a causal relationship". It is only necessary for one company to have a relation for this assumption to be broken. This makes the test quite weak. The counts supplements the test by letting us see how many companies actually have significant relations. Since we are testing for almost 100 companies on must expect some false positives.
+\\\\
+Weekly data shows a different structure. We see a strong indication that demand is causing supply, while we have very little evidence for suppl causing demand. This indicates that lagged demand variables carry much of the same information as supply variables. Since several companies does not show this granger causality we will keep both suppy and demand variables going forwards. 
+\\\\
+Weekly data indicates bidirectional interaction, for all Wikipedia views and search term trend, but not concept trend or ticker trend. Demand has a strong causal relationship to supply in a large number of companies. Supply on the other hand only shows clear relationships in a few companies.  
+\\\\
+\textcolor{red}{Since we have a dual causal relationship both variables are likely to carry some sort of information that is valuable to use in prediction. }
+
+
+\begin{table}[]
+\caption{Granger causality for log-median normalized daily data} \label{tab:gr_caus_daily}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllll}
+\hline
+ & \multicolumn{6}{c}{\textbf{news\_count}} \\
+ & \multicolumn{3}{c}{demand causing supply} & \multicolumn{3}{c}{Supply causing demand} \\
+ & overall p & count 5\% & count 10\% & overall p & count 5\% & count 10\% \\
+wiki & 3.65e-09 & 10 & 21 & 0.0004564 & 12 & 19 \\
+concept\_trend & 1.937e-07 & 13 & 20 & 5.283e-05 & 16 & 19 \\
+search\_term\_trend & 1.406e-13 & 15 & 21 & 3.394e-07 & 17 & 24 \\
+ticker\_trend & 8.423e-09 & 14 & 23 & 1.289e-07 & 15 & 23 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\caption{Granger causality for log-median normalized weekly data} \label{tab:gr_caus_weekly}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllll}
+\hline
+ & \multicolumn{6}{c}{\textbf{news\_count}} \\
+ & \multicolumn{3}{c}{demand causing supply} & \multicolumn{3}{c}{Supply causing demand} \\
+ & overall p & count 5\% & count 10\% & overall p & count 5\% & count 10\% \\
+wiki & 2.175566e-94 & 54 & 63 & 0.001199 & 5 & 7 \\
+concept\_trend & 8.323685e-40 & 28 & 38 & 0.4508 & 6 & 10 \\
+search\_term\_trend & 5.123757e-37 & 26 & 39 & 0.05393 & 5 & 8 \\
+ticker\_trend & 2.110355e-26 & 30 & 37 & 0.1955 & 10 & 16 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+
+\cleardoublepage

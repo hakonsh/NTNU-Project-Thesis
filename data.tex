@@ -1,0 +1,112 @@
+%===================================== CHAP 4 =================================
+
+\chapter{Data}
+
+
+\section{Description}
+For our analyses we have gathered data on the  S\&P 100 companies from July 2017 through September 2018. for each company we have collected open/close prices, trading volumes, news articles, google trends data, and wikipedia pageviews.  
+\\\\
+The Thomson Reuters Eikon database is used to obtain news headlines data for the companies. Google Trends is used to obtain Google Search Volume Index data. Alpha Vantage is used for financials. Wikipedia Pageviews Analysis gives the search volume of the Wikipedia page for the different companies. 
+\\\\
+In Thomson Reuters we used Reuters instrument codes (RICs) instead of company names when finding stock and news information. RICs allows us to  gather news articles that relates to subsidiaries of a company without doing multiple manual searches for each of them.
+\\\\
+\textcolor{red}{Tell something about the size of our dataset - number of companies and observations}
+\\\\
+We include all companies that were part of S\&P 100 as of October 1, 2018. Companies with lack of financial data, Wikipedia Pageviews data and SVI data had to be excluded from our analyses. The table below gives an overview of the excluded companies. 
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+ & \multicolumn{3}{l|}{\textbf{Reason}} \\ \hline
+\textbf{Company} & \textit{Lack of SVI data} & \textit{Lack of financial data} & \textit{Lack of Wikipedia Pageviews data} \\ \hline
+DuPont & \cellcolor[HTML]{9B9B9B}{\color[HTML]{9B9B9B}} &  &  \\ \hline
+Morgan Stanley & \cellcolor[HTML]{9B9B9B}{\color[HTML]{9B9B9B} } &  &  \\ \hline
+Twenty-First Century Fox & \cellcolor[HTML]{9B9B9B} &  &  \\ \hline
+Google & \cellcolor[HTML]{9B9B9B} &  &  \\ \hline
+Booking Holdings & \cellcolor[HTML]{9B9B9B} &  &  \\ \hline
+Amazon &  &  & \cellcolor[HTML]{9B9B9B}  \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+
+A complete list of the stock tickers we have used in our analyses are given in Appendix XX.
+
+\section{Thomson Reuters Eikon}
+Thomson Reuters Eikon provides access to financial data, as well as the news headlines used in our analyses.  
+
+News headlines are only available from July 2017. Therefore, we have only downloaded daily financial data for the time period between July 2017 and October 2018 for the chosen companies. 
+
+In the following sections, we will present the transformations of the financial data. 
+\section{Alpha Vantage}
+\subsection{Log return}
+We calculated Equation \eqref{log_return} to find the daily log return:
+\begin{equation}
+   \label{log_return} 
+   r_t = log (P_t/P_{t-1}) 
+\end{equation}
+Where $r_t$ is the daily return on day t. $P_t$ and  $P_{t-1}$ is the adjusted closing price on day t and t-1. 
+
+\subsection{Abnormal Trading Volume}
+The calculation of the daily Abnormal Trading Volume (ATV) for a company is based on the following equation: 
+\begin{equation}
+   \label{abnormal_volume} 
+   ATV_{w,d} = log(TV_{w,d}) - log[Med(TV_{w-8,d},...,TV_{w-1,d})] 
+\end{equation}
+   Where $ATV_w,_d$ is the Abnormal Trading Volume at week $w$ and day number $d$. Day number is a value in the interval $1,...,7$, where $1=Monday,...,7=Sunday$. $log(TV_{w,d})$ is the logarithm of the trading volume at week $w$ and day number $d$. $log[Med(TV_{w-8,d},...,TV_{w-1,d})]$ is the rolling logarithmic median TV of the 7 last weekdays $d$ in the dataset.
+
+
+\subsection{Volatility}
+Volatilitet(likning 8 i filen fra Markus, må undersøkes nærmere): Mange studier viser at volatilitet er korrelert med stock returns(se artikkelen: French et al. (1987) and Balaban and Bayar (2005).
+Weekly volatility is calculated as the difference from weekly high/low prices through the following formula:
+\begin{equation}
+   \label{w_volatility} 
+   WVol_{w} = \frac{high_w/low_w}{2*\sqrt{log(2)}} 
+\end{equation}
+Where w is week number $high$ is the highest quoted price, $low$ is the lowest quoted price
+
+Monthly volatility is calculated simply as the average of weekly volatilites, this is not technically correct, but usefull in our model as an estimate for long term volatility.
+\begin{equation}
+   \label{m_volatility} 
+   MVol_{w} = avg( WVol_{w-1..w-4}) 
+\end{equation}
+\section{Google Trends}
+Google Trends provides data about the information demand on the S\&P 100 companies. This tool provides search volume for different search terms for an optional time interval reported as an index between 0 and 100. The Search Volume Index (hereafter called SVI) values are normalized based on the chosen time interval during download. The SVI values are not meaningful in itself, as it can be be manipulated to an arbitrary number by changing the time interval. Therefore, it is necessary to standardize the values. Standardization also makes the indices more comparable across companies. We standardize by taking the logarithm of the SVI minus its median in the first 8 weeks. 
+\iffalse
+We calculated Equation \eqref{asvi} to find the Abnormal Search Volume Index (ASVI), which is the standardized SVI:
+\begin{equation}
+   \label{eq1} 
+   ASVI_t=\frac{SVI_t-\sum_{n=0}^{N}SVI_t_-_n}{\sigma_S_V_I}\
+\end{equation}Where N is the number of daily indices during the past year and $\sigma_t$ is the standard deviation of the indices during the past year.
+\fi
+\\\\
+We calculated Equation \eqref{log_asvi} to find the Abnormal Search Volume Index (ASVI) at week $w$ and day number $d$, which is basically the same equation as Equation \eqref{abnormal_volume}:
+\begin{equation}
+   \label{log_asvi} 
+   ASVI_{w,d} = log(SVI_{w,d}) - log[Med(SVI_{w-8,d},...,SVI_{w-1,d})] 
+\end{equation}
+   Where $log(SVI_{w,d})$ is the logarithm of the Search Volume Index at week $w$ and day number $d$. $log[Med(SVI_{w-8,d},...,SVI_{w-1,d})]$ is the rolling logarithmic median SVI of the 7 last weekdays $d$ in the dataset.
+
+\section{Wikipedia Pageviews Analysis}
+
+Wikipedia Pageviews Analysis is, together with Google Trends, a measure of the information demand on the S\&P 100 companies. The Pageviews Analysis gives us the absolute search volume on the S\&P 100 companies on a daily, weekly and yearly basis. Some of the companies had data for too short time periods. Thus, some of the companies had to be excluded from our analyses. 
+\\\\
+We calculated Equation \eqref{log_asvi} to find the Abnormal Pageviews Volume (APV) at week $w$ and day number $d$, which is basically the same equation as Equation \eqref{abnormal_volume}:
+\begin{equation}
+   \label{abnormal_pageviews_volume} 
+   APV_{w,d} = log(PV_{w,d}) - log[Med(PV_{w-8,d},...,PV_{w-1,d})] 
+\end{equation}
+   Where $log(PV_{w,d})$ is the logarithm of the Pageviews Volume at week $w$ and day number $d$. $log[Med(PV_{w-8,d},...,PV_{w-1,d})]$ is the rolling logarithmic median PV of the 7 last weekdays $d$ in the dataset.
+   
+   \section{Descriptive statistics}
+
+
+
+
+
