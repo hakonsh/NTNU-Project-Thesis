@@ -4,11 +4,9 @@
 
 
 \section{Description}
-For our analyses we have gathered data on the  S\&P 100 companies from July 2017 through September 2018. For each company we have collected open/close prices, trading volumes, news articles, Google trends data, and Wikipedia pageviews.  
+For our analyses we have gathered data on the  S\&P 100 companies from July 2017 through September 2018. For each company we have collected price data, trading volumes, news article counts, Google trends data, and Wikipedia pageviews.  
 \\\\
-The Thomson Reuters Eikon database is used to obtain news headlines data for the companies. Google Trends is used to obtain Google Search Volume Index data. Alpha Vantage is used for financials. Wikipedia Pageviews Analysis gives the search volume of the Wikipedia page for the different companies. 
-\\\\
-In Thomson Reuters we used Reuters instrument codes (RICs) instead of company names when finding news information. RICs allows us to  gather news articles that relates to subsidiaries of a company without doing multiple manual searches for each of them.
+The Thomson Reuters Eikon database is used to obtain news stories about each company. Google Trends is used to obtain Google Search Volume Index data. Alpha Vantage is used for financials. Wikipedia Pageviews Analysis gives the search volume of the Wikipedia page for the different companies. 
 \\\\
 We include all companies that were part of S\&P 100 as of October 1, 2018, except DuPont, Booking Holdings, Bristol Myers Squibb, as they lacked Google trends data. After removing companies with incomplete data we were left with 97 companies and 7275 observations. A complete list of the stock tickers we have used in our analyses are given in Appendix XX.
 
@@ -18,7 +16,7 @@ Thomson Reuters Eikon provides access to news articles categorised by the compan
 \\\\
 News headlines are only available from July 2017. This limits our dataset to the period between July 2017 and 0ctober 2018.
 \\\\
-To extract the news data we wrote a script accessing the Eikon API. It pulled all news articles from the NewsWire and NewsRoom databases which where tagged with one of the S \& P 100 companies. For each company we made a weekly count of the number of articles who are tagged with the company RIC.
+ In Thomson Reuters we used Reuters instrument codes (RICs) instead of company names when finding news information. RICs allows us to  gather news articles that relates to subsidiaries of a company without doing multiple manual searches for each of them. To extract the news data we wrote a script accessing the Eikon API. It pulled all news articles from the NewsWire and NewsRoom databases which where tagged with one of the S \& P 100 companies. For each company we made a weekly count of the number of articles who are tagged with the company RIC.
 \\\\
 To normalize news data we calculated weekly news count, $NC$. Which we transformed the Abnormal news count with the following formula:
 \begin{equation}
@@ -33,9 +31,9 @@ Daily company financial was pulled from the Alpha Vantage API using ticker codes
 We calculated Equation \eqref{log_return} to find the daily log return:
 \begin{equation}
    \label{log_return} 
-   R_w = log (C_w/C_{w-1}) 
+   R_w = log (C_{w+1}/C_{w}) 
 \end{equation}
-Where $R_t$ is the weekly return for week $w$. $C_w$ and  $C_{w-1}$ is the adjusted closing price for friday in week $w$ and $w-1$. 
+Where $R_t$ is the weekly return for week $w$. $C_w$ and  $C_{w-1}$ is the adjusted closing price for monday in week $w+1$ and $w$. 
 
 \subsection{Abnormal Trading Volume}
 The calculation of the daily Abnormal Trading Volume (ATV) for a company is based on the following equation: 
@@ -43,16 +41,16 @@ The calculation of the daily Abnormal Trading Volume (ATV) for a company is base
    \label{abnormal_volume} 
    ATV_{w} = log(TV_{w}) - log[Med(TV_{w-8},...,TV_{w-1})] 
 \end{equation}
-   Where $ATV_w$ is the Abnormal Trading Volume at week $w$. $log(TV_{w})$ is the logarithm of the trading volume at week $w$. $log[Med(TV_{w-8},...,TV_{w-1})]$ is the rolling logarithmic median TV of the 7 last weeks in the dataset.
+   Where $ATV_w$ is the Abnormal Trading Volume at week $w$. $log(TV_{w})$ is the logarithm of the trading volume at week $w$. $log[Med(TV_{w-8},...,TV_{w-1})]$ is the logarithm of the median $TV$ for the previous 7 weeks.
 
 
 \subsection{Volatility}
-Weekly volatility is calculated as the difference from weekly high/low prices through the following formula:
+Weekly volatility is calculated from weekly high/low prices with the following formula:
 \begin{equation}
    \label{w_volatility} 
-   WVol_{w} = \frac{high_w/low_w}{2*\sqrt{log(2)}} 
+   WVol_{w} = \frac{log(high_w/low_w)}{2*\sqrt{log(2)}} 
 \end{equation}
-Where w is week number $high$ / $low$ is the highest/ lowest quoted price the week $w$.
+Where w is week number $high_w$ / $low_w$ is the highest/ lowest quoted price in week $w$.
 \\\\
 Monthly volatility is calculated as the average of weekly volatilities. We have chosen to not scale the monthly volatility, to make it easier to compare its effect on the model with the weekly volatility measure.
 \begin{equation}
@@ -62,25 +60,58 @@ Monthly volatility is calculated as the average of weekly volatilities. We have 
 \section{Google Trends}
 Google Trends provides data about Google search volume for keywords or concepts. The index is reported as a value between 0 and 100 for the given time period. The Search Volume Index (hereafter called SVI) values are normalized based on the chosen time interval during download, so to the highest value equals 100. The SVI values are not meaningful in themselves, as they can be be manipulated to an arbitrary number by changing the time interval. Therefore, it is necessary to standardize the values. Standardization also makes the index more comparable across companies. We standardize by taking the logarithm of the SVI minus its median in the first 8 weeks. 
 \\\\
-We calculated Equation \eqref{log_asvi} to find the Abnormal Search Volume Index (ASVI) at week $w$, which is basically the same equation as Equation \eqref{abnormal_volume}:
+We collected 3 different Google trends SVI's per company:
+\begin{itemize}
+\item Ticker trend - using each companies stock ticker as a keyword
+\item Search term trend - \textcolor{red}{ HAAKON KAN DU SKRIVE HVA VI EGENTLIG GJORDE HER}
+\item Concept trend - we found the concept id for each company by searching on the company name in Google trends and choosing the "company" result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company was used instead. For a complete reference, see appendix XX
+\end{itemize}
+
+We calculated Equation \eqref{log_asvi} to find the Abnormal Search Volume Index (ASVI) at week $w$:
 \begin{equation}
    \label{log_asvi} 
    ASVI_{w} = log(SVI_{w}) - log[Med(SVI_{w-8},...,SVI_{w-1})] 
 \end{equation}
-Where $log(SVI_{w})$ is the logarithm of the Search Volume Index at week $w$. $log[Med(SVI_{w-8},...,SVI_{w-1})]$ is the rolling logarithmic median SVI of the 7 last weeks in the dataset.
+Where $log(SVI_{w})$ is the logarithm of the Search Volume Index at week $w$. $log[Med(SVI_{w-8},...,SVI_{w-1})]$is the logarithm of the median $SVI$ for the previous 7 weeks.
 
 \section{Wikipedia Pageviews Analysis}
 
-Wikipedia Pageviews Analysis gives data on pageviews for individual Wikipedia pages. The Pageviews Analysis gives us the absolute view counts on the pages for each of the S\&P 100 companies on a daily, weekly and yearly basis. Some companies only had data for very short periods. These companies had to be excluded from our analyses. 
+Wikipedia Pageviews Analysis is a tool to extract pageview volume for individual Wikipedia pages. Pageviews Analysis gives us the absolute view counts on the pages for each of the S\&P 100 companies on a daily, weekly and yearly basis. To get company specific data we mapped company names to the Wikipedia pages describing them.
 \\\\
 We calculated Equation \eqref{log_asvi} to find the Abnormal Pageviews Volume (APV) at week $w$, which is basically the same equation as Equation \eqref{abnormal_volume}:
 \begin{equation}
    \label{abnormal_pageviews_volume} 
    APV_{w} = log(PV_{w}) - log[Med(PV_{w-8},...,PV_{w-1})] 
 \end{equation}
-   Where $log(PV_{w})$ is the logarithm of the Pageviews Volume at week $w$. $log[Med(PV_{w-8},...,PV_{w-1})]$ is the rolling logarithmic median PV of the 7 last weeks in the dataset.
-   
-   \section{Descriptive statistics}
+   Where $log(PV_{w})$ is the logarithm of the Pageviews Volume at week $w$. $log[Med(PV_{w-8},...,PV_{w-1})]$is the logarithm of the median $PV$ for the previous 7 weeks.
+
+
+\section{Descriptive statistics}
+
+\subsection{Stationarity}
+The log-median transformation we have used should correct for several non-stationary effects in the original data. 
+Subtracting previous values removes any linear trend, and taking the logarithm should minimize other non-linear relations. 
+\\\\
+To test for stationarity in the transformed variables we have run the argumented Dickey-Fuller (ADF) test for each variable and each company separately. The results are presented in table \ref{tab:ADF_counts}. Since we are using 97 companies it is expected that there would be some false positives in the results. Overall we conclude that all variable are stationary. 
+\\\\
+Monthly volatility was not tested under ADF as it is by definition auto-regressive for the first few lags, the test is therefore likely to fail. Instead, we conclude that if weekly volatility is stationarity, this should hold for monthly volatility as well, since one is the average of the other.
+
+\begin{table}[]
+% the data for the table is generated by the stationarity_test Jupyter file
+\caption{Company count for the ADF test with normalized variabels} \label{tab:ADF_counts} 
+\centering
+\begin{tabular}{lll}
+\hline
+ & p\textless{}0.05 & p\textgreater{}0.05 \\
+wiki & 91 & 6 \\
+concept\_trend & 89 & 8 \\
+search\_term\_trend & 89 & 8 \\
+ticker\_trend & 90 & 7 \\
+volume & 95 & 2 \\
+news\_count & 94 & 3 \\ \hline
+\end{tabular}
+\end{table}
+
 
 
 
