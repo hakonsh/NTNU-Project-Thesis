@@ -25,6 +25,8 @@ To normalize news data we calculated weekly news count, $NC$. Which we transform
 \end{equation}
 Where $w$ is week number, and log is the natural logarithm.
 \\\\
+Advantages logmedian (\cite{engelberg}): "where log (SVIt) is the logarithm of SVI during week t, and log [Med(SVIt − 1, …, SVIt − 8)]. is the logarithm of the median value of SVI during the prior 8 weeks.8 Intuitively, the median over a longer time window captures the “normal” level of attention in a way that is robust to recent jumps. ASVI also has the advantage that time trends and other low‐frequency seasonalities are removed. A large positive ASVI clearly represents a surge in investor attention and can be compared across stocks in the cross‐section"
+\\\\
 \section{Alpha Vantage}
 Daily company financial was pulled from the Alpha Vantage API using ticker codes for each company. This includes open, close, high, low, adjusted close, and volume for each ticker. 
 \subsection{Log return}
@@ -62,11 +64,12 @@ Google Trends provides data about Google search volume for keywords or concepts.
 \\\\
 We collected 3 different Google trends SVI's per company:
 \begin{itemize}
-\item Ticker trend - using each companies stock ticker as a keyword
-\item Search term trend - \textcolor{red}{ HAAKON KAN DU SKRIVE HVA VI EGENTLIG GJORDE HER}
-\item Concept trend - we found the concept id for each company by searching on the company name in Google trends and choosing the "company" result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company was used instead. For a complete reference, see appendix XX
+\item Ticker trend - Using each companies stock ticker as a keyword
+\item Search term trend - We followed the method described in Vlastakis et al. (2012). We started by inserting the full company name and all the variations known to us to Google Insights for Search and chose the keyword with the largest search volume.
+\item Concept trend - We found the concept id for each company by searching on the company name in Google trends and choosing the "company" result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company was used instead.
 \end{itemize}
-
+For a complete list of company identifiers see Appendix \ref{app:company_terms}
+\\\\
 We calculated Equation \eqref{log_asvi} to find the Abnormal Search Volume Index (ASVI) at week $w$:
 \begin{equation}
    \label{log_asvi} 
@@ -92,7 +95,7 @@ We calculated Equation \eqref{log_asvi} to find the Abnormal Pageviews Volume (A
 The log-median transformation we have used should correct for several non-stationary effects in the original data. 
 Subtracting previous values removes any linear trend, and taking the logarithm should minimize other non-linear relations. 
 \\\\
-To test for stationarity in the transformed variables we have run the argumented Dickey-Fuller (ADF) test for each variable and each company separately. The results are presented in table \ref{tab:ADF_counts}. Since we are using 97 companies it is expected that there would be some false positives in the results. Overall we conclude that all variable are stationary. 
+To test for stationarity in the transformed variables we have run the argumented Dickey-Fuller (ADF) test for each variable and each company separately. The results are presented in Table \ref{tab:ADF_counts}. Since we are using 97 companies it is expected that there would be some false positives in the results. Overall we conclude that all variable are stationary. 
 \\\\
 Monthly volatility was not tested under ADF as it is by definition auto-regressive for the first few lags, the test is therefore likely to fail. Instead, we conclude that if weekly volatility is stationarity, this should hold for monthly volatility as well, since one is the average of the other.
 
