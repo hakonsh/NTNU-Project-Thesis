@@ -3,3 +3,348 @@
 \chapter{Results}
 
 \cleardoublepage
+
+\section{Temp storage}
+\subsection{Old with $R^{2}$ and that stuff correct}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{volume} & \multicolumn{1}{c}{weekly volatility} & \multicolumn{1}{c}{log return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+  log return lag 1 & -0.812^{***}$ $(0.114) & -0.007^{***}$ $(0.001) & -0.047^{***}$ $(0.014) \\ 
+  log return lag 2 & -0.456^{***}$ $(0.115) & -0.001$ $(0.001) & -0.038^{***}$ $(0.014) \\ 
+  log return lag 3 & -0.213^{*}$ $(0.116) & -0.002$ $(0.001) & 0.026^{*}$ $(0.014) \\ 
+  log return lag 4 & -0.284^{**}$ $(0.115) & -0.002$ $(0.001) & 0.001$ $(0.014) \\ 
+  weekly volatility lag 1 & -13.225^{***}$ $(1.485) & 0.188^{***}$ $(0.016) & 0.501^{***}$ $(0.180) \\ 
+  weekly volatility lag 2 & -5.864^{***}$ $(1.550) & 0.038^{**}$ $(0.017) & 0.518^{***}$ $(0.188) \\ 
+  weekly volatility lag 3 & -2.781^{*}$ $(1.558) & 0.068^{***}$ $(0.017) & -0.253$ $(0.188) \\ 
+  weekly volatility lag 4 & -2.126$ $(1.498) & 0.050^{***}$ $(0.016) & -0.106$ $(0.181) \\ 
+  volume lag 1 & 0.360^{***}$ $(0.016) & -0.0003$ $(0.0002) & -0.003^{*}$ $(0.002) \\ 
+  volume lag 2 & 0.042^{**}$ $(0.017) & -0.0001$ $(0.0002) & -0.002$ $(0.002) \\ 
+  volume lag 3 & -0.003$ $(0.017) & -0.0001$ $(0.0002) & -0.001$ $(0.002) \\ 
+  volume lag 4 & -0.080^{***}$ $(0.016) & -0.0001$ $(0.0002) & 0.001$ $(0.002) \\ 
+  news count lag 1 & -0.001$ $(0.011) & -0.0001$ $(0.0001) & -0.002$ $(0.001) \\ 
+  news count lag 2 & -0.028^{***}$ $(0.011) & -0.0001$ $(0.0001) & -0.001$ $(0.001) \\ 
+  news count lag 3 & -0.003$ $(0.011) & 0.00002$ $(0.0001) & 0.002$ $(0.001) \\ 
+  news count lag 4 & 0.008$ $(0.010) & -0.0002$ $(0.0001) & -0.001$ $(0.001) \\ 
+  wiki lag 1 & -0.024$ $(0.021) & -0.0001$ $(0.0002) & 0.003$ $(0.003) \\ 
+  wiki lag 2 & -0.012$ $(0.024) & 0.0003$ $(0.0003) & 0.001$ $(0.003) \\ 
+  wiki lag 3 & 0.019$ $(0.024) & 0.00003$ $(0.0003) & -0.005^{*}$ $(0.003) \\ 
+  wiki lag 4 & 0.0004$ $(0.020) & 0.0001$ $(0.0002) & 0.001$ $(0.002) \\ 
+  concept trend lag 1 & 0.340^{***}$ $(0.036) & 0.003^{***}$ $(0.0004) & -0.008^{*}$ $(0.004) \\ 
+  concept trend lag 2 & -0.081^{**}$ $(0.039) & -0.0005$ $(0.0004) & 0.007$ $(0.005) \\ 
+  concept trend lag 3 & -0.014$ $(0.039) & -0.0003$ $(0.0004) & -0.007$ $(0.005) \\ 
+  concept trend lag 4 & 0.041$ $(0.036) & 0.001$ $(0.0004) & 0.002$ $(0.004) \\ 
+  search term trend lag 1 & -0.004$ $(0.036) & 0.0001$ $(0.0004) & 0.006$ $(0.004) \\ 
+  search term trend lag 2 & -0.010$ $(0.037) & -0.0002$ $(0.0004) & -0.006$ $(0.005) \\ 
+  search term trend lag 3 & -0.013$ $(0.037) & 0.0002$ $(0.0004) & 0.002$ $(0.004) \\ 
+  search term trend lag 4 & 0.0002$ $(0.035) & -0.0003$ $(0.0004) & 0.004$ $(0.004) \\ 
+  ticker trend lag 1 & 0.480^{***}$ $(0.020) & 0.004^{***}$ $(0.0002) & 0.004^{*}$ $(0.002) \\ 
+  ticker trend lag 2 & -0.144^{***}$ $(0.022) & -0.001^{***}$ $(0.0002) & -0.001$ $(0.003) \\ 
+  ticker trend lag 3 & -0.013$ $(0.022) & -0.0005^{**}$ $(0.0002) & 0.004$ $(0.003) \\ 
+  ticker trend lag 4 & 0.031$ $(0.021) & 0.0003$ $(0.0002) & -0.001$ $(0.003) \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.295} & \multicolumn{1}{c}{0.151} & \multicolumn{1}{c}{0.013} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.271} & \multicolumn{1}{c}{0.122} & \multicolumn{1}{c}{-0.021} \\ 
+F Statistic (df = 32; 5402) & \multicolumn{1}{c}{70.652$^{***}$} & \multicolumn{1}{c}{30.051$^{***}$} & \multicolumn{1}{c}{2.273$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.664^{***}$ $(0.126) & -0.005^{***}$ $(0.001) & -0.046^{***}$ $(0.014) \\ 
+  w\_vol\_l1 & 5.044^{***}$ $(1.358) & 0.184^{***}$ $(0.014) & 0.406^{***}$ $(0.147) \\ 
+  m\_exc\_vol\_l1 & -40.127^{***}$ $(2.278) & 0.123^{***}$ $(0.023) & 0.535^{**}$ $(0.247) \\ 
+  m\_exc\_logmedian\_VOLUME & 0.209^{***}$ $(0.023) & -0.001^{***}$ $(0.0002) & -0.005^{**}$ $(0.003) \\ 
+  m\_exc\_logmedian\_news\_count & -0.059^{***}$ $(0.018) & -0.0005^{**}$ $(0.0002) & -0.0004$ $(0.002) \\ 
+  m\_exc\_logmedian\_wiki & -0.094^{***}$ $(0.029) & -0.0001$ $(0.0003) & -0.0001$ $(0.003) \\ 
+  m\_exc\_logmedian\_concept\_trend & 0.300^{***}$ $(0.054) & 0.002^{***}$ $(0.001) & -0.005$ $(0.006) \\ 
+  m\_exc\_logmedian\_search\_term\_trend & 0.008$ $(0.059) & -0.0001$ $(0.001) & 0.003$ $(0.006) \\ 
+  m\_exc\_logmedian\_ticker\_trend & 0.351^{***}$ $(0.031) & 0.002^{***}$ $(0.0003) & 0.006^{*}$ $(0.003) \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.115} & \multicolumn{1}{c}{0.068} & \multicolumn{1}{c}{0.006} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.089} & \multicolumn{1}{c}{0.040} & \multicolumn{1}{c}{-0.024} \\ 
+F Statistic (df = 9; 5425) & \multicolumn{1}{c}{78.673$^{***}$} & \multicolumn{1}{c}{43.955$^{***}$} & \multicolumn{1}{c}{3.418$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\section{New with robust standard errors}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\small 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.664^{***} & -0.005^{***} & -0.046^{**} \\ 
+  w\_vol\_l1 & 5.044^{***} & 0.184^{***} & 0.406^{***} \\ 
+  m\_exc\_vol\_l1 & -40.127^{***} & 0.123^{***} & 0.535^{*} \\ 
+  m\_exc\_logmedian\_VOLUME & 0.209^{***} & -0.001^{***} & -0.005^{**} \\ 
+  m\_exc\_logmedian\_news\_count & -0.059^{**} & -0.0005^{**} & -0.0004 \\ 
+  m\_exc\_logmedian\_wiki & -0.094^{***} & -0.0001 & -0.0001 \\ 
+  m\_exc\_logmedian\_concept\_trend & 0.300^{***} & 0.002^{***} & -0.005 \\ 
+  m\_exc\_logmedian\_search\_term\_trend & 0.008 & -0.0001 & 0.003 \\ 
+  m\_exc\_logmedian\_ticker\_trend & 0.351^{***} & 0.002^{***} & 0.006^{*} \\ 
+ \hline \\[-1.8ex] 
+ Observations & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.115} & \multicolumn{1}{c}{0.068} & \multicolumn{1}{c}{0.006} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.089} & \multicolumn{1}{c}{0.040} & \multicolumn{1}{c}{-0.024} \\ 
+F Statistic (df = 9; 5425) & \multicolumn{1}{c}{78.673$^{***}$} & \multicolumn{1}{c}{43.955$^{***}$} & \multicolumn{1}{c}{3.418$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{volume} & \multicolumn{1}{c}{weekly volatility} & \multicolumn{1}{c}{log return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+  log\_return\_l1 & -0.812^{***} & -0.007^{***} & -0.047^{**} \\ 
+  log\_return\_l2 & -0.456^{***} & -0.001 & -0.038^{***} \\ 
+  log\_return\_l3 & -0.213^{*} & -0.002 & 0.026 \\ 
+  log\_return\_l4 & -0.284^{***} & -0.002 & 0.001 \\ 
+  w\_vol\_l1 & -13.225^{***} & 0.188^{***} & 0.501^{**} \\ 
+  w\_vol\_l2 & -5.864^{***} & 0.038^{**} & 0.518^{***} \\ 
+  w\_vol\_l3 & -2.781 & 0.068^{***} & -0.253 \\ 
+  w\_vol\_l4 & -2.126 & 0.050^{**} & -0.106 \\ 
+  logmedian\_VOLUME\_l1 & 0.360^{***} & -0.0003 & -0.003 \\ 
+  logmedian\_VOLUME\_l2 & 0.042^{**} & -0.0001 & -0.002 \\ 
+  logmedian\_VOLUME\_l3 & -0.003 & -0.0001 & -0.001 \\ 
+  logmedian\_VOLUME\_l4 & -0.080^{***} & -0.0001 & 0.001 \\ 
+  logmedian\_news\_count\_l1 & -0.001 & -0.0001 & -0.002 \\ 
+  logmedian\_news\_count\_l2 & -0.028^{***} & -0.0001 & -0.001 \\ 
+  logmedian\_news\_count\_l3 & -0.003 & 0.00002 & 0.002 \\ 
+  logmedian\_news\_count\_l4 & 0.008 & -0.0002 & -0.001 \\ 
+  logmedian\_wiki\_l1 & -0.024 & -0.0001 & 0.003 \\ 
+  logmedian\_wiki\_l2 & -0.012 & 0.0003 & 0.001 \\ 
+  logmedian\_wiki\_l3 & 0.019 & 0.00003 & -0.005^{**} \\ 
+  logmedian\_wiki\_l4 & 0.0004 & 0.0001 & 0.001 \\ 
+  logmedian\_concept\_trend\_l1 & 0.340^{***} & 0.003^{***} & -0.008 \\ 
+  logmedian\_concept\_trend\_l2 & -0.081 & -0.0005 & 0.007 \\ 
+  logmedian\_concept\_trend\_l3 & -0.014 & -0.0003 & -0.007 \\ 
+  logmedian\_concept\_trend\_l4 & 0.041 & 0.001 & 0.002 \\ 
+  logmedian\_search\_term\_trend\_l1 & -0.004 & 0.0001 & 0.006 \\ 
+  logmedian\_search\_term\_trend\_l2 & -0.010 & -0.0002 & -0.006 \\ 
+  logmedian\_search\_term\_trend\_l3 & -0.013 & 0.0002 & 0.002 \\ 
+  logmedian\_search\_term\_trend\_l4 & 0.0002 & -0.0003 & 0.004 \\ 
+  logmedian\_ticker\_trend\_l1 & 0.480^{***} & 0.004^{***} & 0.004 \\ 
+  logmedian\_ticker\_trend\_l2 & -0.144^{***} & -0.001^{***} & -0.001 \\ 
+  logmedian\_ticker\_trend\_l3 & -0.013 & -0.0005^{**} & 0.004^{**} \\ 
+  logmedian\_ticker\_trend\_l4 & 0.031 & 0.0003 & -0.001 \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.295} & \multicolumn{1}{c}{0.151} & \multicolumn{1}{c}{0.013} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.271} & \multicolumn{1}{c}{0.122} & \multicolumn{1}{c}{-0.021} \\ 
+F Statistic (df = 32; 5402) & \multicolumn{1}{c}{70.652$^{***}$} & \multicolumn{1}{c}{30.051$^{***}$} & \multicolumn{1}{c}{2.273$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\section{Finished tables}
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\small 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{volume} & \multicolumn{1}{c}{weekly volatility} & \multicolumn{1}{c}{log return} \\ 
+\hline \\[-1.8ex] 
+ log return lag 1 & -0.664^{***} & -0.005^{***} & -0.046^{**} \\ 
+  weekly volatility lag 1 & 5.044^{***} & 0.184^{***} & 0.406^{***} \\ 
+  monthly vol lag 1 & -40.127^{***} & 0.123^{***} & 0.535^{*} \\ 
+  monthly volume & 0.209^{***} & -0.001^{***} & -0.005^{**} \\ 
+  monthly news count & -0.059^{**} & -0.0005^{**} & -0.0004 \\ 
+  monthly wiki & -0.094^{***} & -0.0001 & -0.0001 \\ 
+  monthly concept trend & 0.300^{***} & 0.002^{***} & -0.005 \\ 
+  monthly search term trend & 0.008 & -0.0001 & 0.003 \\ 
+  monthly ticker trend & 0.351^{***} & 0.002^{***} & 0.006^{*} \\ 
+ \hline \\[-1.8ex] 
+ Observations & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.115} & \multicolumn{1}{c}{0.068} & \multicolumn{1}{c}{0.006} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.089} & \multicolumn{1}{c}{0.040} & \multicolumn{1}{c}{-0.024} \\ 
+F Statistic (df = 9; 5425) & \multicolumn{1}{c}{78.673$^{***}$} & \multicolumn{1}{c}{43.955$^{***}$} & \multicolumn{1}{c}{3.418$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{volume} & \multicolumn{1}{c}{weekly volatility} & \multicolumn{1}{c}{log return} \\ 
+\hline \\[-1.8ex] 
+  log return lag 1 & -0.812^{***} & -0.007^{***} & -0.047^{**} \\ 
+  log return lag 2 & -0.456^{***} & -0.001 & -0.038^{***} \\ 
+  log return lag 3 & -0.213^{*} & -0.002 & 0.026 \\ 
+  log return lag 4 & -0.284^{***} & -0.002 & 0.001 \\ 
+  weekly volatility lag 1 & -13.225^{***} & 0.188^{***} & 0.501^{**} \\ 
+  weekly volatility lag 2 & -5.864^{***} & 0.038^{**} & 0.518^{***} \\ 
+  weekly volatility lag 3 & -2.781 & 0.068^{***} & -0.253 \\ 
+  weekly volatility lag 4 & -2.126 & 0.050^{**} & -0.106 \\ 
+  volume lag 1 & 0.360^{***} & -0.0003 & -0.003 \\ 
+  volume lag 2 & 0.042^{**} & -0.0001 & -0.002 \\ 
+  volume lag 3 & -0.003 & -0.0001 & -0.001 \\ 
+  volume lag 4 & -0.080^{***} & -0.0001 & 0.001 \\ 
+  news count lag 1 & -0.001 & -0.0001 & -0.002 \\ 
+  news count lag 2 & -0.028^{***} & -0.0001 & -0.001 \\ 
+  news count lag 3 & -0.003 & 0.00002 & 0.002 \\ 
+  news count lag 4 & 0.008 & -0.0002 & -0.001 \\ 
+  wiki lag 1 & -0.024 & -0.0001 & 0.003 \\ 
+  wiki lag 2 & -0.012 & 0.0003 & 0.001 \\ 
+  wiki lag 3 & 0.019 & 0.00003 & -0.005^{**} \\ 
+  wiki lag 4 & 0.0004 & 0.0001 & 0.001 \\ 
+  concept trend lag 1 & 0.340^{***} & 0.003^{***} & -0.008 \\ 
+  concept trend lag 2 & -0.081 & -0.0005 & 0.007 \\ 
+  concept trend lag 3 & -0.014 & -0.0003 & -0.007 \\ 
+  concept trend lag 4 & 0.041 & 0.001 & 0.002 \\ 
+  search term trend lag 1 & -0.004 & 0.0001 & 0.006 \\ 
+  search term trend lag 2 & -0.010 & -0.0002 & -0.006 \\ 
+  search term trend lag 3 & -0.013 & 0.0002 & 0.002 \\ 
+  search term trend lag 4 & 0.0002 & -0.0003 & 0.004 \\ 
+  ticker trend lag 1 & 0.480^{***} & 0.004^{***} & 0.004 \\ 
+  ticker trend lag 2 & -0.144^{***} & -0.001^{***} & -0.001 \\ 
+  ticker trend lag 3 & -0.013 & -0.0005^{**} & 0.004^{**} \\ 
+  ticker trend lag 4 & 0.031 & 0.0003 & -0.001 \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} & \multicolumn{1}{c}{5,589} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.295} & \multicolumn{1}{c}{0.151} & \multicolumn{1}{c}{0.013} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.271} & \multicolumn{1}{c}{0.122} & \multicolumn{1}{c}{-0.021} \\ 
+F Statistic (df = 32; 5402) & \multicolumn{1}{c}{70.652$^{***}$} & \multicolumn{1}{c}{30.051$^{***}$} & \multicolumn{1}{c}{2.273$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\section{Weekly basic, monthly information}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.642^{***} & -0.006^{***} & -0.048^{***} \\ 
+  log\_return\_l2 & -0.511^{***} & -0.002 & -0.038^{***} \\ 
+  log\_return\_l3 & -0.309^{**} & -0.003^{**} & 0.026^{*} \\ 
+  log\_return\_l4 & -0.353^{***} & -0.002^{*} & 0.001 \\ 
+  w\_vol\_l1 & -12.996^{***} & 0.188^{***} & 0.491^{***} \\ 
+  w\_vol\_l2 & -9.771^{***} & 0.006 & 0.521^{***} \\ 
+  w\_vol\_l3 & -4.533^{***} & 0.054^{***} & -0.253 \\ 
+  w\_vol\_l4 & -1.797 & 0.050^{***} & -0.104 \\ 
+  logmedian\_VOLUME\_l1 & 0.363^{***} & -0.0003 & -0.004^{**} \\ 
+  logmedian\_VOLUME\_l2 & 0.0002 & -0.0004^{**} & -0.002 \\ 
+  logmedian\_VOLUME\_l3 & -0.011 & -0.0002 & -0.001 \\ 
+  logmedian\_VOLUME\_l4 & -0.089^{***} & -0.0003^{*} & 0.001 \\ 
+  m\_exc\_logmedian\_news\_count & -0.033^{***} & -0.0003^{**} & -0.002 \\ 
+  m\_exc\_logmedian\_wiki & -0.067^{**} & -0.0001 & 0.0001 \\ 
+  m\_exc\_logmedian\_concept\_trend & 0.292^{***} & 0.003^{***} & -0.004 \\ 
+  m\_exc\_logmedian\_search\_term\_trend & -0.019 & -0.0001 & 0.004 \\ 
+  m\_exc\_logmedian\_ticker\_trend & 0.324^{***} & 0.002^{***} & 0.007^{**} \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,582} & \multicolumn{1}{c}{5,582} & \multicolumn{1}{c}{5,582} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.190} & \multicolumn{1}{c}{0.071} & \multicolumn{1}{c}{0.011} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.165} & \multicolumn{1}{c}{0.042} & \multicolumn{1}{c}{-0.021} \\ 
+F Statistic (df = 17; 5410) & \multicolumn{1}{c}{74.837$^{***}$} & \multicolumn{1}{c}{24.441$^{***}$} & \multicolumn{1}{c}{3.409$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+
+\section{only basic variables}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.523^{***} & -0.004^{***} & -0.050^{***} \\ 
+  log\_return\_l2 & -0.355^{***} & -0.001 & -0.034^{***} \\ 
+  log\_return\_l3 & -0.109 & -0.001 & 0.021 \\ 
+  log\_return\_l4 & -0.249^{**} & -0.002 & 0.005 \\ 
+  w\_vol\_l1 & -12.176^{***} & 0.194^{***} & 0.501^{***} \\ 
+  w\_vol\_l2 & -8.584^{***} & 0.024 & 0.387^{**} \\ 
+  w\_vol\_l3 & -3.059^{*} & 0.071^{***} & -0.236 \\ 
+  w\_vol\_l4 & -1.715 & 0.056^{***} & -0.139 \\ 
+  logmedian\_VOLUME\_l1 & 0.398^{***} & 0.00001 & -0.004^{**} \\ 
+  logmedian\_VOLUME\_l2 & 0.024 & -0.0003 & -0.0003 \\ 
+  logmedian\_VOLUME\_l3 & 0.009 & -0.0001 & -0.0001 \\ 
+  logmedian\_VOLUME\_l4 & -0.084^{***} & -0.0003 & 0.001 \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{6,083} & \multicolumn{1}{c}{6,083} & \multicolumn{1}{c}{6,083} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.156} & \multicolumn{1}{c}{0.056} & \multicolumn{1}{c}{0.008} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.131} & \multicolumn{1}{c}{0.029} & \multicolumn{1}{c}{-0.020} \\ 
+F Statistic (df = 12; 5911) & \multicolumn{1}{c}{90.834$^{***}$} & \multicolumn{1}{c}{29.192$^{***}$} & \multicolumn{1}{c}{4.081$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 

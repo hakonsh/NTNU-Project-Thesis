@@ -8,10 +8,10 @@ For our analyses we have gathered data on the  S\&P 100 companies from July 2017
 \\\\
 The Thomson Reuters Eikon database is used to obtain news stories about each company. Google Trends is used to obtain Google Search Volume Index data. Alpha Vantage is used for financials. Wikipedia Pageviews Analysis gives the search volume of the Wikipedia page for the different companies. 
 \\\\
-We include all companies that were part of S\&P 100 as of October 1, 2018, except DuPont, Booking Holdings, Bristol Myers Squibb, as they lacked Google trends data. After removing companies with incomplete data we were left with 97 companies and 7275 observations. A complete list of the stock tickers we have used in our analyses are given in Appendix XX.
+We include all companies that were part of S\&P 100 as of October 1, 2018, except DuPont, Booking Holdings, Bristol Myers Squibb, as they lacked Google trends data. After removing companies with incomplete data we were left with 97 companies and 7275 observations. A complete list of the stock tickers we have used in our analyses are given in Appendix \ref{app:company_terms}.
 
 
-\section{Thomson Reuters Eikon}
+\section{News articles}
 Thomson Reuters Eikon provides access to news articles categorised by the companies they mention.
 \\\\
 News headlines are only available from July 2017. This limits our dataset to the period between July 2017 and 0ctober 2018.
@@ -27,27 +27,23 @@ Where $w$ is week number, and log is the natural logarithm.
 \\\\
 Advantages logmedian (\cite{engelberg}): "where log (SVIt) is the logarithm of SVI during week t, and log [Med(SVIt − 1, …, SVIt − 8)]. is the logarithm of the median value of SVI during the prior 8 weeks.8 Intuitively, the median over a longer time window captures the “normal” level of attention in a way that is robust to recent jumps. ASVI also has the advantage that time trends and other low‐frequency seasonalities are removed. A large positive ASVI clearly represents a surge in investor attention and can be compared across stocks in the cross‐section"
 \\\\
-\section{Alpha Vantage}
 Daily company financial was pulled from the Alpha Vantage API using ticker codes for each company. This includes open, close, high, low, adjusted close, and volume for each ticker. 
-\subsection{Log return}
-We calculated Equation \eqref{log_return} to find the daily log return:
+\\\\
+We used Equation \eqref{log_return} to calculate the daily log return:
 \begin{equation}
    \label{log_return} 
    R_w = log (C_{w+1}/C_{w}) 
 \end{equation}
 Where $R_t$ is the weekly return for week $w$. $C_w$ and  $C_{w-1}$ is the adjusted closing price for monday in week $w+1$ and $w$. 
-
-\subsection{Abnormal Trading Volume}
-The calculation of the daily Abnormal Trading Volume (ATV) for a company is based on the following equation: 
+\\\\
+We used the following equation to calculate the daily Abnormal Trading Volume (ATV) for a company: 
 \begin{equation}
    \label{abnormal_volume} 
    ATV_{w} = log(TV_{w}) - log[Med(TV_{w-8},...,TV_{w-1})] 
 \end{equation}
    Where $ATV_w$ is the Abnormal Trading Volume at week $w$. $log(TV_{w})$ is the logarithm of the trading volume at week $w$. $log[Med(TV_{w-8},...,TV_{w-1})]$ is the logarithm of the median $TV$ for the previous 7 weeks.
-
-
-\subsection{Volatility}
-Weekly volatility is calculated from weekly high/low prices with the following formula:
+\\\\
+The following formula was used to calculate weekly volatility from weekly high/low prices:
 \begin{equation}
    \label{w_volatility} 
    WVol_{w} = \frac{log(high_w/low_w)}{2*\sqrt{log(2)}} 
@@ -67,10 +63,12 @@ We collected 3 different Google trends SVI's per company:
 \item Ticker trend - Using each companies stock ticker as a keyword
 \item Search term trend - We followed the method described in Vlastakis et al. (2012). We started by inserting the full company name and all the variations known to us to Google Insights for Search and chose the keyword with the largest search volume.
 \item Concept trend - We found the concept id for each company by searching on the company name in Google trends and choosing the "company" result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company was used instead.
+\\\\
+When searching for keywords, only searches matching the specific spelling and language is returned. This can be a problem if the company name is hard to spell, or is used in different ways. ”Concepts” tries to overcome this problem by grouping all keywords and translations relevant to a specific ”concept” together. This gives a far broader and potentially more accurate picture of the interest in the ”concept”.
 \end{itemize}
 For a complete list of company identifiers see Appendix \ref{app:company_terms}
 \\\\
-We calculated Equation \eqref{log_asvi} to find the Abnormal Search Volume Index (ASVI) at week $w$:
+We used Equation \eqref{log_asvi} to calculate the Abnormal Search Volume Index (ASVI) at week $w$:
 \begin{equation}
    \label{log_asvi} 
    ASVI_{w} = log(SVI_{w}) - log[Med(SVI_{w-8},...,SVI_{w-1})] 
@@ -81,7 +79,7 @@ Where $log(SVI_{w})$ is the logarithm of the Search Volume Index at week $w$. $l
 
 Wikipedia Pageviews Analysis is a tool to extract pageview volume for individual Wikipedia pages. Pageviews Analysis gives us the absolute view counts on the pages for each of the S\&P 100 companies on a daily, weekly and yearly basis. To get company specific data we mapped company names to the Wikipedia pages describing them.
 \\\\
-We calculated Equation \eqref{log_asvi} to find the Abnormal Pageviews Volume (APV) at week $w$, which is basically the same equation as Equation \eqref{abnormal_volume}:
+We used Equation \eqref{log_asvi} to calculate the Abnormal Pageviews Volume (APV) at week $w$, which is basically the same equation as Equation \eqref{abnormal_volume}:
 \begin{equation}
    \label{abnormal_pageviews_volume} 
    APV_{w} = log(PV_{w}) - log[Med(PV_{w-8},...,PV_{w-1})] 
