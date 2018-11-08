@@ -185,7 +185,7 @@ F Statistic (df = 32; 5402) & \multicolumn{1}{c}{70.652$^{***}$} & \multicolumn{
 
 \section{Finished tables}
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Monthly everything} 
   \label{} 
 \small 
 \begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
@@ -216,7 +216,7 @@ F Statistic (df = 9; 5425) & \multicolumn{1}{c}{78.673$^{***}$} & \multicolumn{1
 \end{table} 
 
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Weekly everything} 
   \label{} 
 \footnotesize 
 \begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
@@ -272,7 +272,7 @@ F Statistic (df = 32; 5402) & \multicolumn{1}{c}{70.652$^{***}$} & \multicolumn{
 \section{Weekly basic, monthly information}
 
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Weekly financial, monthly information predictors} 
   \label{} 
 \footnotesize 
 \begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
@@ -315,7 +315,7 @@ F Statistic (df = 17; 5410) & \multicolumn{1}{c}{74.837$^{***}$} & \multicolumn{
 \section{only basic variables}
 
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Only financial predictors} 
   \label{} 
 \footnotesize 
 \begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
@@ -343,6 +343,115 @@ Observations & \multicolumn{1}{c}{6,083} & \multicolumn{1}{c}{6,083} & \multicol
 R$^{2}$ & \multicolumn{1}{c}{0.156} & \multicolumn{1}{c}{0.056} & \multicolumn{1}{c}{0.008} \\ 
 Adjusted R$^{2}$ & \multicolumn{1}{c}{0.131} & \multicolumn{1}{c}{0.029} & \multicolumn{1}{c}{-0.020} \\ 
 F Statistic (df = 12; 5911) & \multicolumn{1}{c}{90.834$^{***}$} & \multicolumn{1}{c}{29.192$^{***}$} & \multicolumn{1}{c}{4.081$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[!htbp] \centering 
+  \caption{Lags of 2 weeks} 
+  \label{} 
+\small 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.807^{***} & -0.007^{***} & -0.048^{**} \\ 
+  log\_return\_l2 & -0.434^{***} & -0.0003 & -0.040^{***} \\ 
+  w\_vol\_l1 & -14.292^{***} & 0.208^{***} & 0.409^{**} \\ 
+  w\_vol\_l2 & -5.972^{***} & 0.060^{***} & 0.466^{***} \\ 
+  logmedian\_VOLUME\_l1 & 0.377^{***} & -0.0003^{*} & -0.003 \\ 
+  logmedian\_VOLUME\_l2 & 0.025^{*} & -0.0003^{**} & -0.001 \\ 
+  logmedian\_news\_count\_l1 & -0.0002 & -0.0001^{*} & -0.001 \\ 
+  logmedian\_news\_count\_l2 & -0.016^{**} & -0.0001 & -0.001 \\ 
+  logmedian\_wiki\_l1 & -0.024 & -0.0002 & 0.004 \\ 
+  logmedian\_wiki\_l2 & -0.009 & 0.0003 & -0.001 \\ 
+  logmedian\_concept\_trend\_l1 & 0.333^{***} & 0.003^{***} & -0.008 \\ 
+  logmedian\_concept\_trend\_l2 & -0.093^{**} & -0.0005 & 0.005 \\ 
+  logmedian\_search\_term\_trend\_l1 & -0.002 & 0.0002 & 0.006 \\ 
+  logmedian\_search\_term\_trend\_l2 & -0.007 & -0.0002 & -0.004 \\ 
+  logmedian\_ticker\_trend\_l1 & 0.485^{***} & 0.004^{***} & 0.004 \\ 
+  logmedian\_ticker\_trend\_l2 & -0.146^{***} & -0.002^{***} & 0.001 \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,778} & \multicolumn{1}{c}{5,778} & \multicolumn{1}{c}{5,778} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.284} & \multicolumn{1}{c}{0.142} & \multicolumn{1}{c}{0.010} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.262} & \multicolumn{1}{c}{0.116} & \multicolumn{1}{c}{-0.021} \\ 
+F Statistic (df = 16; 5605) & \multicolumn{1}{c}{139.151$^{***}$} & \multicolumn{1}{c}{58.066$^{***}$} & \multicolumn{1}{c}{3.368$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+
+\begin{table}[!htbp] \centering 
+  \caption{1 week lag + monthly} 
+  \label{} 
+\small 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.778^{***} & -0.007^{***} & -0.046^{**} \\ 
+  w\_vol\_l1 & -11.993^{***} & 0.122^{***} & 0.548^{**} \\ 
+  logmedian\_VOLUME\_l1 & 0.375^{***} & -0.0003 & -0.004 \\ 
+  logmedian\_news\_count\_l1 & -0.009 & -0.0002^{**} & -0.001 \\ 
+  logmedian\_wiki\_l1 & -0.066^{***} & -0.0005 & 0.005^{*} \\ 
+  logmedian\_concept\_trend\_l1 & 0.345^{***} & 0.003^{***} & -0.007 \\ 
+  logmedian\_search\_term\_trend\_l1 & 0.0001 & 0.0003 & 0.004 \\ 
+  logmedian\_ticker\_trend\_l1 & 0.484^{***} & 0.004^{***} & 0.002 \\ 
+  m\_exc\_vol & -12.427^{***} & 0.222^{***} & 0.146 \\ 
+  m\_exc\_logmedian\_VOLUME & -0.029 & -0.0003 & -0.001 \\ 
+  m\_exc\_logmedian\_news\_count & -0.005 & 0.00002 & -0.001 \\ 
+  m\_exc\_logmedian\_wiki & 0.039 & 0.001^{*} & -0.004 \\ 
+  m\_exc\_logmedian\_concept\_trend & -0.079 & -0.0003 & 0.002 \\ 
+  m\_exc\_logmedian\_search\_term\_trend & -0.017 & -0.0004 & -0.00002 \\ 
+  m\_exc\_logmedian\_ticker\_trend & -0.153^{***} & -0.002^{***} & 0.005 \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,582} & \multicolumn{1}{c}{5,582} & \multicolumn{1}{c}{5,582} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.279} & \multicolumn{1}{c}{0.143} & \multicolumn{1}{c}{0.007} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.257} & \multicolumn{1}{c}{0.116} & \multicolumn{1}{c}{-0.024} \\ 
+F Statistic (df = 15; 5412) & \multicolumn{1}{c}{139.850$^{***}$} & \multicolumn{1}{c}{60.277$^{***}$} & \multicolumn{1}{c}{2.557$^{***}$} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[!htbp] \centering 
+  \caption{1 Lag} 
+  \label{} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{1}{c}{logmedian\_VOLUME} & \multicolumn{1}{c}{w\_vol} & \multicolumn{1}{c}{log\_return} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+\hline \\[-1.8ex] 
+ log\_return\_l1 & -0.810^{***} & -0.007^{***} & -0.043^{**} \\ 
+  w\_vol\_l1 & -16.624^{***} & 0.219^{***} & 0.535^{***} \\ 
+  logmedian\_VOLUME\_l1 & 0.360^{***} & -0.001^{***} & -0.003^{*} \\ 
+  logmedian\_news\_count\_l1 & -0.008 & -0.0002^{***} & -0.001^{*} \\ 
+  logmedian\_wiki\_l1 & -0.063^{***} & -0.0003 & 0.003^{*} \\ 
+  logmedian\_concept\_trend\_l1 & 0.303^{***} & 0.002^{***} & -0.007 \\ 
+  logmedian\_search\_term\_trend\_l1 & 0.007 & 0.0001 & 0.005 \\ 
+  logmedian\_ticker\_trend\_l1 & 0.434^{***} & 0.003^{***} & 0.004 \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{5,877} & \multicolumn{1}{c}{5,877} & \multicolumn{1}{c}{5,877} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.266} & \multicolumn{1}{c}{0.131} & \multicolumn{1}{c}{0.006} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.245} & \multicolumn{1}{c}{0.106} & \multicolumn{1}{c}{-0.023} \\ 
+F Statistic (df = 8; 5711) & \multicolumn{1}{c}{258.599$^{***}$} & \multicolumn{1}{c}{107.311$^{***}$} & \multicolumn{1}{c}{4.131$^{***}$} \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
