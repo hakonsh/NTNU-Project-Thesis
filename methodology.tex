@@ -30,22 +30,7 @@ Ticker trends has a low correlation to concept and search term trends. This indi
 News count also has a quite low correlation coefficient (~20\%). This is not entirely m surprising as there is likely some lag between information demand and supply.   
 
 
-\begin{table}[]
-\caption{Pearson correlation for log-median normalized weekly demand variables} \label{tab:inf_demand_cor_weekly} 
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llllll}
-\hline
- & wiki & concept\_trend & search\_term\_trend & ticker\_trend & news\_count \\
-wiki & 1,00 & 0,12 & 0,11 & 0,02 & 0,09 \\
-concept\_trend & 0,12 & 1,00 & 0,76 & 0,27 & 0,14 \\
-search\_term\_trend & 0,11 & 0,76 & 1,00 & 0,27 & 0,15 \\
-ticker\_trend & 0,02 & 0,27 & 0,27 & 1,00 & 0,14 \\
-news\_count & 0,09 & 0,14 & 0,15 & 0,14 & 1,00 \\ \hline
 
-\end{tabular}%
-}
-\end{table}
 
 
 
@@ -69,22 +54,21 @@ Weekly data indicates bidirectional interaction, for all Wikipedia views and sea
 \\\\
 \textcolor{red}{Since we have a dual causal relationship both variables are likely to carry some sort of information that is valuable to use in prediction. }
 
+\clearpage
 
 \begin{table}[]
-\caption{Granger causality for log-median normalized daily data} \label{tab:gr_caus_daily}
+\caption{Pearson correlation for log-median normalized weekly demand variables} \label{tab:inf_demand_cor_weekly} 
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lllllll}
+\begin{tabular}{lllll}
 \hline
- & \multicolumn{6}{c}{\textbf{news\_count}} \\
- & \multicolumn{3}{c}{demand causing supply} & \multicolumn{3}{c}{Supply causing demand} \\
- & overall p & count 5\% & count 10\% & overall p & count 5\% & count 10\% \\
-wiki & 3.65e-09 & 10 & 21 & 0.0004564 & 12 & 19 \\
-concept\_trend & 1.937e-07 & 13 & 20 & 5.283e-05 & 16 & 19 \\
-search\_term\_trend & 1.406e-13 & 15 & 21 & 3.394e-07 & 17 & 24 \\
-ticker\_trend & 8.423e-09 & 14 & 23 & 1.289e-07 & 15 & 23 \\ \hline
+ & wiki & concept\_trend & search\_term\_trend & ticker\_trend \\
+concept\_trend & 0,12 &  & &  &  \\
+search\_term\_trend & 0,11 & 0,76 &  & & \\
+ticker\_trend & 0,02 & 0,27 & 0,27 &  &  \\
+news\_count & 0,09 & 0,14 & 0,15 & 0,14 & \\ \hline
+
 \end{tabular}%
-}
+
 \end{table}
 
 \begin{table}[]
@@ -103,6 +87,5 @@ ticker\_trend & 2.110355e-26 & 30 & 37 & 0.1955 & 10 & 16 \\ \hline
 \end{tabular}%
 }
 \end{table}
-
 
 \cleardoublepage
