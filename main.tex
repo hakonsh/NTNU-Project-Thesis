@@ -9,6 +9,8 @@
 \usepackage{longtable}
 \usepackage{rotating}
 \usepackage{dcolumn}
+\usepackage{chngcntr}
+\counterwithout{equation}{chapter} % remove the chapter number
 
 \input{docsetup.tex}
 
@@ -26,7 +28,6 @@
 
 %% PART 3 -- The Chapters
 \input{introduction.tex}		%% Edit each chapter
-\input{literatureReview.tex}
 \input{data.tex}
 \input{methodology.tex}
 \input{results.tex}
