@@ -1,55 +1,83 @@
 %===================================== CHAP 4 =================================
 
 \chapter{Data}
-For our analyses we have gathered data on the  S\&P 100 companies from July 2017 through September 2018. For each company we have collected price data, trading volumes, news article counts, Google Trends data, and Wikipedia pageviews.  
+For our analyses we have gathered data on the  S\&P 100 companies. For each company we have collected price data, trading volumes, news article counts, Google Trends data, and Wikipedia pageviews.  
 \\\\
-We include all companies that were part of S\&P 100 as of October 1, 2018, except Dow DuPont, Booking Holdings and Walgreens Boots Alliance, as they lacked Google Trends data. For concept trend, Dow Dupont does not exist in Google Trends, while Booking Holdings only has data from February 2018. Walgreens Boots Alliance has null values in the dataset for concept trend, which gives invalid values in our dataset. After removing companies with incomplete data we were left with 97 companies and 7275 observations. A complete list of the stock tickers we have used in our analyses are given in Appendix \ref{app:company_terms}.
+We include all companies that were part of S\&P 100 as of October 1, 2018, except Dow DuPont, Booking Holdings and Walgreens Boots Alliance, as they lack Google Trends data. For concept trend, Dow Dupont does not exist in Google Trends, while Booking Holdings only has data from February 2018. Walgreens Boots Alliance had null values in the dataset for concept trend, which gives invalid values in our dataset. After removing companies with incomplete data we were left with 97 companies and 7275 observations. A complete list of the stock tickers we use in our analyses is given in Appendix \ref{app:company_terms}.
 
 
-\section{News articles}
-News articles were collected from the Thomson Reuters Eikon database where we are able to obtain news articles categorized by the companies they mention. Our user account only gives us access from July 2017 an forwards. Our dataset covers the period between July 2017 and October 2018.
+\section{News articles}\todo{si noe om hvor mye vi har lastet ned}
+News articles are collected from the Thomson Reuters Eikon database where we are able to obtain news articles categorized by the companies they mention. Our dataset covers the time period between July 2017 and September 2018 for both information demand and supply variables. This is about the same time period as \cite{vlastakis} use for the information supply variable in their analyses. The Thomson Reuters Eikon database provides detailed news data and its website provides the following description of the news database:
+\\
+"Access content from over 400 real-time streaming news sources and financial newswires, over 6,000 near real-time and archived sources, and hundreds of Web sources so that you have the full spectrum of information you need to act first. All regions of the world are covered, including essential emerging markets." (\cite{descriptionThomsonReutersdatabase})
+\\\\\todo{nevn antallet nyhetskilder brukt, average/max/min, totalt antall artikler in our database}
+In Thomson Reuters we use Reuters instrument codes (RICs) instead of company names when collecting news articles. RICs allow us to  gather news articles that relates to subsidiaries of a company without doing multiple manual searches for each of them. To extract the news data we wrote a script accessing the Eikon API. It obtains all news articles from the NewsWire and NewsRoom databases, which are tagged as mentioning one of the S \& P 100 companies. For each company we make a weekly count of the number of articles who are tagged with the company RIC.
 \\\\
- In Thomson Reuters we used Reuters instrument codes (RICs) instead of company names when finding news information. RICs allow us to  gather news articles that relates to subsidiaries of a company without doing multiple manual searches for each of them. To extract the news data we wrote a script accessing the Eikon API. It obtained all news articles from the NewsWire and NewsRoom databases, which where tagged as mentioning  one of the S \& P 100 companies. For each company we made a weekly count of the number of articles who were tagged with the company RIC.
-\\\\
-To normalize news data we transformed weekly news count, $NC$, into the Abnormal News Count with the following formula:
+\todo{skriv noe mer om scriptingen/applikasjonen, hva kan den gjoere?}
+To normalize news data we transform weekly news count, $Nws$, into the Abnormal News Count with the following formula:
 \begin{equation}
    \label{abnormal_news} 
-   ANC_{w} = log(NC_{w}) - log[Med(NC_{w-8},...,NC_{w-1})] 
+   AbnNws_{t} = log(Nws_{t}) - log[Med(Nws_{t-8},...,Nws_{w-1})] 
 \end{equation}
 \\
-Where $log(NC_{w})$ is logarithm of the news count at week number $w$. $log[Med(NC_{w-8},...,NC_{w-1})]$ is the logarithm of the median $NC$ for the previous 8 weeks in accordance with \cite{engelberg}. 
+where $log(Nws_{t})$ is the logarithm of the news count at week number $t$. $log[Med(Nws_{t-8},...,Nws_{t-1})]$ is the logarithm of the median $Nws$ for the previous 8 weeks in accordance with \cite{engelberg}. 
 \\\\
 $log$ is defined as the natural logarithm in all equations. 
 \\\\
 \section{Company financials}
-Daily company financials was obtained from the Alpha Vantage API using ticker codes for each company. This includes open, close, high, low, adjusted close, and volume for each ticker. We use weeks starting and ending on Mondays when calculating financial variables. This is to make sure all variables have a comparable time period. As Google Trend uses weeks starting on Sunday and ending on Saturday, Monday is the first available trading day after the Google Trends week ends. 
+Daily company financials are obtained from the Alpha Vantage API using ticker codes for each company. This includes open, close, high, low, adjusted close, and volume for each ticker. We use weeks starting and ending on Mondays when calculating financial variables. This is to make sure all variables have comparable time periods. As Google Trend uses weeks starting on Sunday and ending on Saturday, Monday is the first available trading day after the Google Trends week ends. 
 \subsection*{Log return}
-We used Equation \eqref{log_return} to calculate the weekly log return:
+We use Equation \eqref{log_return} to calculate the weekly log return:
 \begin{equation}
    \label{log_return} 
-   R_w = log (C_{w+1}/C_{w}) 
+   R_t = log (C_{t+1}/C_{t}) 
 \end{equation}
-Where $C_{w}$ is the adjusted Monday closing price and $R_{w}$ is the return for week $w$.
+where $C_{t}$ is the adjusted Monday closing price and $R_{t}$ is the return for week $t$.
 \\\\
 \subsection*{Trading volume}
-We used the following equation to calculate the daily Abnormal Trading Volume (ATV) for a company: 
+We use the following equation to calculate the daily Abnormal Trading Volume ($AbnVlm$) for a company: 
 \begin{equation}
    \label{abnormal_volume} 
-   ATV_{w} = log(TV_{w}) - log[Med(TV_{w-8},...,TV_{w-1})] 
+   AbnVlm_{t} = log(Vlm_{t}) - log[Med(Vlm_{t-8},...,Vlm_{t-1})] 
 \end{equation}
-   Where $ATV_w$ is the Abnormal Trading Volume at week $w$. $log(TV_{w})$ is the logarithm of the trading volume at week $w$. $log[Med(TV_{w-8},...,TV_{w-1})]$ is the logarithm of the median $TV$ for the previous 8 weeks.
+   where $AbnVlm_t$ is the Abnormal Trading Volume at week $t$. $log(Vlm_{t})$ is the logarithm of the trading volume at week $t$. $log[Med(Vlm_{t-8},...,Vlm_{t-1})]$ is the logarithm of the median $Vlm$ for the previous 8 weeks.
 \subsection*{Volatility}
-The following formula was used to calculate weekly volatility from daily high/low prices:
+We use the \cite{garman} volatility estimator adjusted for opening jumps as discussed in \cite{molnar_volatility}.
+The following formula is used to calculate daily variance:
 \begin{equation}
    \label{w_volatility} 
-   WVol_{w} = \frac{1}{7} \sum_{day\in week} \frac{log(high_{day}/low_{day})}{2*\sqrt{log(2)}} 
+    \sigma^2_{d} = \frac{1}{2}(h_d-l_d)^2-(2log(2)-1)c_d^2+jadj_d^2
 \end{equation}
-Where $w$ is week number $high_{day}$ / $low_{day}$ is the highest/ lowest quoted price on the given day in week $w$.
+with:
+\begin{equation}
+\begin{split}
+c_{d} = log(close_{d})-log(open_{d}) \\
+l_{d} = log(low_{d})-log(open_{d}) \\
+h_{d} = log(high_{d})-log(open_{d}) \\
+j_{d} = log(open_{d})-log(close_{d-1}) \\
+r_{d} = log(close_{d})-log(close_{d-1}) \\
+radj_{d} = log(aclose_{d})-log(aclose_{d-1}) \\
+jadj_{d} = j_{d} \frac{radj_{d}}{r_{d}} \\
+\end{split}
+\end{equation}
+Weekly variance is calculated as:
+\begin{equation}
+   \label{w_volatility} 
+    \sigma^2_{t} = \sum_{d \in t} \sigma^2_{d} 
+\end{equation}
+Finally weekly volatility is calculated as:
+\begin{equation}
+   \label{w_volatility} 
+    \sigma_t = \sqrt{\sigma^2_t}
+\end{equation}
+ where t is week number. $high_{d}$ and $low_{d}$ is the highest and lowest quoted price on the given day, and $open_{d}$, $close_{d}$, $aclose_{d}$ is the open, close and adjusted close price on the given day. 
 
-\section{Search volume}
-Search volume data was collected from Google Trends which provides data about Google search volume for keywords or concepts. The search volume data was downloaded directly from the Google Trends page. The index is reported as a value between 0 and 100 for the given time period. The Search Volume Index (hereafter called SVI) values are normalized based on the chosen time interval during download, so the highest value equals 100. The SVI values are not meaningful in themselves, as they can be be manipulated to an arbitrary number by changing the time interval. Therefore, it is necessary to standardize the values. Standardization also makes the index more comparable across companies. We standardize by taking the logarithm of the SVI minus its median in the first 8 weeks. 
+\section{Search volume}\label{sec:search volume}\todo{legg inn bilder av ticker, search term og name -> beveger seg ulikt, ulikt antall klikk}
+\todo{en som viser size difference}
+\todo{en som viser ulike bevegelser}
+Search volume data is collected from Google Trends which provides data about Google search volume for keywords or concepts. The search volume data is downloaded directly from the Google Trends page. The index is reported as a value between 0 and 100 for the given time period. The Search Volume Index (hereafter called SVI) values are normalized based on the chosen time interval during download, so the highest value equals 100. The SVI values are not meaningful in themselves, as they can be be manipulated to an arbitrary number by changing the time interval. Therefore, it is necessary to standardize the values. Standardization also makes the index more comparable across companies. We standardize by taking the logarithm of the SVI minus its median in the first 8 weeks. 
 \\\\
-We collected 3 different Google Trends SVI's per company:
+We collect 3 different Google Trends SVI's per company:
 \\\\
 \textit{Ticker trend}
 \\
@@ -57,45 +85,59 @@ Using each companies stock ticker as a keyword
 \\\\
 \textit{Search term trend}
 \\
-We followed the method described in  \cite{vlastakis}. We started by inserting the full company name and all the variations known to us to Google Insights for Search and chose the keyword with the largest search volume.
+We follow the method described in  \cite{vlastakis}. We started by inserting the full company name and all the variations known to us to Google Insights for Search and chose the keyword with the largest search volume.
 \\\\
 \textit{Concept trend}
 \\
-Concept trend is a recently introduced search function in Google Trends. We found the concept id for each company by searching on the company name in Google Trends and choosing the company result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company was used instead.
+\todo{legge inn forklaring paa hvordan vi fant concept trend, deler av lenke}Concept trend is a recently introduced search function in Google Trends. We find the concept id for each company by searching on the company name in Google Trends and choosing the company result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company is used instead.
 \\\\
 When searching for keywords, only searches matching the specific spelling and language is returned. This can be a problem if the company name is hard to spell, or is used in different ways ”Concepts” tries to overcome this problem by grouping all keywords and translations relevant to a specific ”concept” together. This gives a far broader and potentially more accurate picture of the interest in the ”concept”.
 \\\\
 For a complete list of company identifiers see Appendix \ref{app:company_terms}
 \\\\
-We used Equation \eqref{log_asvi} to calculate the Abnormal Search Volume Index (ASVI) at week $w$:
+We use Equation \eqref{log_asvi} to calculate the Abnormal Search Volume Index ($AbnSVI$) at week $t$:
 \begin{equation}
    \label{log_asvi} 
-   ASVI_{w} = log(SVI_{w}) - log[Med(SVI_{w-8},...,SVI_{w-1})] 
+   AbnSVI_{t} = log(SVI_{t}) - log[Med(SVI_{t-8},...,SVI_{t-1})] 
 \end{equation}
-Where $log(SVI_{w})$ is the logarithm of the Search Volume Index at week $w$. $log[Med(SVI_{w-8},...,SVI_{w-1})]$is the logarithm of the median $SVI$ for the previous 8 weeks.
+where $log(SVI_{t})$ is the logarithm of the Search Volume Index at week $t$. $log[Med(SVI_{t-8},...,SVI_{t-1})]$ is the logarithm of the median $SVI$ for the previous 8 weeks.
+\\\\
+It is interesting to include three different trends data from Google for each company, as the companies show different movements for company trend, search term trend and ticker trend. An example of this can be seen in figure \ref{fig:bmyStatisticsGoogleTrends} for Bristol-Myers Squibb. In figure \ref{fig:bmyStatisticsGoogleTrends}, the movements in company trends is quite different from the movements in ticker trend. Further, the search volume for company trend, ticker trend and search term trend is different for a company as well. In figure \ref{fig:xomStatisticsGoogleTrends} we see that search volume for company trend is more than twice as large as it is for the search term trend. Because movements and search volume fluctuate across ticker trend, search term trend and company trend for a specific company, it is likely that they contain different information.   
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1\textwidth]{fig/bmyStatisticsGoogleTrendsAddedExplanation.png}
+ \caption{Google Search Volume for company trend, ticker trend and search term trend for Bristol-Myers Squibb.}
+\label{fig:bmyStatisticsGoogleTrends}
+\end{figure}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1\textwidth]{fig/xomStatisticsGoogleTrendsAddedExplanation.png}
+ \caption{Google Search Volume for company trend, search term trend and ticker trend for Exxon Mobil.}
+\label{fig:xomStatisticsGoogleTrends}
+\end{figure}
 
 \section{Wikipedia views}
 
-Wikipedia views were collected from Wikipedia Pageviews Analysis which is is a tool to extract pageview volume for individual Wikipedia pages. Pageviews Analysis gives us the absolute view counts on the pages for each of the S\&P 100 companies on a daily, weekly and yearly basis. To get company specific data we mapped company names to the Wikipedia pages describing them.
+Wikipedia views are collected from Wikipedia Pageviews Analysis which is is a tool to extract pageview volume for individual Wikipedia pages. Pageviews Analysis gives us the absolute view counts on the pages for each of the S\&P 100 companies on a daily, weekly and yearly basis. To get company specific data we map company names to the Wikipedia pages describing them.
 \\\\
-We used Equation \eqref{log_asvi} to calculate the Abnormal Pageviews Volume (APV) at week $w$, which is basically the same equation as Equation \eqref{abnormal_volume}:
+We use Equation \eqref{log_asvi} to calculate the Abnormal Pageviews Volume ($AbnWiki$) at week $t$, which is basically the same equation as Equation \eqref{abnormal_volume}:
 \begin{equation}
    \label{abnormal_pageviews_volume} 
-   APV_{w} = log(PV_{w}) - log[Med(PV_{w-8},...,PV_{w-1})] 
+   AbnWiki_{t} = log(Wiki_{t}) - log[Med(Wiki_{t-8},...,Wiki_{t-1})] 
 \end{equation}
-   Where $log(PV_{w})$ is the logarithm of the Pageviews Volume at week $w$. $log[Med(PV_{w-8},...,PV_{w-1})]$is the logarithm of the median $PV$ for the previous 8 weeks.
+   where $log(Wiki_{t})$ is the logarithm of the Pageviews Volume at week $t$, and $log[Med(Wiki_{t-8},...,Wiki_{t-1})]$is the logarithm of the median $Wiki$ for the previous 8 weeks.
 
 \section{Monthly variables}
 % TODO write about normalisation of stdev and calculation of monthly variables
- We also calculated the monthly average for all variables by taking the average of the last 4 weeks. 
+ We also calculate the monthly average for all variables by taking the average over the last 4 weeks. 
 \begin{equation}
    \label{monthly_var} 
-   Monthly\_variable = avg(weekly\_variable_{t},...,weekly\_variable_{t-3}) 
+   variable^{m}_t = avg(variable^{w}_{t},...,variable^{w}_{t-3}) 
 \end{equation}
-The reason to include monthly variables is to allow for longer term dependencies in variables. Instead of including several lagged variables we are using monthly variables to keep the model parsimonious.
+where $m$ and $w$ indicate monthly and weekly variables. The reason to include monthly variables is to allow for longer term dependencies in variables. Instead of including several lagged variables we are using monthly variables to keep the model parsimonious.
 \\\\
-Finally, all variables, including monthly averages, was normalized to have a standard deviation of 1 across the pooled data. This was to make it easier to compare coefficients in the calculated models. 
-
+Finally, all variables, including monthly averages, are normalized to have a standard deviation of 1 across the pooled data. Normalization makes the coefficients easier to compare across variables and regression models.
+\todo{avsnitt om innsamlingen av data med scriptingen (API, Pandas}
 \section{Descriptive statistics}
 \begin{table}[!htbp] \centering 
   \caption{Descriptive statistics} 
@@ -122,12 +164,12 @@ logmedian\_ticker\_trend & 0.009 & 0.197 & $-$3.738 & $-$0.056 & 0.054 & 1.833 \
 \subsection*{Stationarity}
 % Stationarity test are run from the stationarity_test Jupyter file
 
-The log-median transformation we have used should correct for several non-stationary effects in the original data. 
+The log-median transformation we use should correct for several non-stationary effects in the original data. 
 Subtracting previous values removes any linear trend, and taking the logarithm should minimize other non-linear relations. 
 \\\\
-To test for stationarity in the transformed variables we have run the argumented Dickey-Fuller (ADF) test for each variable and each company separately. The test indicates stationarity for all variables after normalization. 
+To test for stationarity in the transformed variables we run the argumented Dickey-Fuller (ADF) test for each variable and each company separately. The test indicates stationarity for all variables after normalization. 
 \\\\
-Monthly volatility was not tested under ADF as it is by definition auto-regressive for the first few lags, the test is therefore likely to fail. Instead, we conclude that if weekly volatility is stationarity, this should hold for monthly volatility as well, since one is the average of the other.
+Volatility is not tested under ADF as it is known to be autoregressive, it will therefore almost certainly fail an AD test. 
 
 
 
