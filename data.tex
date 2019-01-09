@@ -89,7 +89,7 @@ We follow the method described in  \cite{vlastakis}. We started by inserting the
 \\\\
 \textit{Concept trend}
 \\
-\todo{legge inn forklaring paa hvordan vi fant concept trend, deler av lenke}Concept trend is a recently introduced search function in Google Trends. We find the concept id for each company by searching on the company name in Google Trends and choosing the company result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company is used instead.
+\todo{legge inn forklaring på hvordan vi fant concept trend, deler av lenke: bilde av url og hvilken del som klippes ut. setter inn i dekoderlenke og får ut concept trend id.}Concept trend is a recently introduced search function in Google Trends. We find the concept id for each company by searching on the company name in Google Trends and choosing the company result instead of the search term. In some cases, where a holding company consist almost exclusively of a daughter company the daughter company is used instead.
 \\\\
 When searching for keywords, only searches matching the specific spelling and language is returned. This can be a problem if the company name is hard to spell, or is used in different ways ”Concepts” tries to overcome this problem by grouping all keywords and translations relevant to a specific ”concept” together. This gives a far broader and potentially more accurate picture of the interest in the ”concept”.
 \\\\
@@ -126,7 +126,7 @@ We use Equation \eqref{log_asvi} to calculate the Abnormal Pageviews Volume ($Ab
    AbnWiki_{t} = log(Wiki_{t}) - log[Med(Wiki_{t-8},...,Wiki_{t-1})] 
 \end{equation}
    where $log(Wiki_{t})$ is the logarithm of the Pageviews Volume at week $t$, and $log[Med(Wiki_{t-8},...,Wiki_{t-1})]$is the logarithm of the median $Wiki$ for the previous 8 weeks.
-
+\todo{Figure with data for interest in company from wiki, trends and news articles (add some text, ulikhet gjør det interessant å ta med alle variablene i analysen, da de gir oss forskjellig bilde av information demand, inneholder samme info med ulike støykilder)}
 \section{Monthly variables}
 % TODO write about normalisation of stdev and calculation of monthly variables
  We also calculate the monthly average for all variables by taking the average over the last 4 weeks. 
@@ -138,6 +138,7 @@ where $m$ and $w$ indicate monthly and weekly variables. The reason to include m
 \\\\
 Finally, all variables, including monthly averages, are normalized to have a standard deviation of 1 across the pooled data. Normalization makes the coefficients easier to compare across variables and regression models.
 \todo{avsnitt om innsamlingen av data med scriptingen (API, Pandas}
+\todo{Oppdater tabell}
 \section{Descriptive statistics}
 \begin{table}[!htbp] \centering 
   \caption{Descriptive statistics} 
@@ -164,12 +165,12 @@ logmedian\_ticker\_trend & 0.009 & 0.197 & $-$3.738 & $-$0.056 & 0.054 & 1.833 \
 \subsection*{Stationarity}
 % Stationarity test are run from the stationarity_test Jupyter file
 
-The log-median transformation we use should correct for several non-stationary effects in the original data. 
+The log-median transformation should correct for non-stationary effects in the original data. 
 Subtracting previous values removes any linear trend, and taking the logarithm should minimize other non-linear relations. 
 \\\\
 To test for stationarity in the transformed variables we run the argumented Dickey-Fuller (ADF) test for each variable and each company separately. The test indicates stationarity for all variables after normalization. 
 \\\\
-Volatility is not tested under ADF as it is known to be autoregressive, it will therefore almost certainly fail an AD test. 
+Volatility is not tested under ADF as it is known to be autoregressive, it will therefore almost certainly fail an ADF test. 
 
 
 
