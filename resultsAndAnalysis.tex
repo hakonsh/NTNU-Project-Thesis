@@ -2,33 +2,35 @@
 
 \chapter{Analysis and results}
 \subsection{Model setup}
-We investigate the predictive power of information variables with regards to the following financial variables: returns, volatility, and trading volume. To allow for comparison between variables and ensure stability of results we calculate several regression models for each financial variable. The models are fixed effects models with company based demeaning. This removes all fixed company effects. P-values are calculated using the White estimator to ensure robustness against heteroscedasticity. The results are shown in table \ref{model:return}, \ref{model:volatility}, and \ref{model:volume}.
+We investigate the predictive power of information variables with regard to the following financial variables: returns, volatility, and trading volume. To allow for comparison between variables and ensure stability of results we calculate several regression models for each financial variable. The models are fixed effects models with company based demeaning. P-values are calculated using the White estimator to ensure robustness against heteroscedasticity. The results are shown in table \ref{model:return}, \ref{model:volatility}, and \ref{model:volume}.
 \\\\
-The following model specifications are used, where $M(x)$ is defined as the monthly average of variable $x$, $inf\_var$ as a placeholder for any of the previously mentioned information variables, and $dependent$ as a placeholder for either $R$, $Vol$ or $AbnVlm$.
+The following model specifications are used, where $x^{m}$ indicates the monthly average of variable $x$, $info\_var$ as a placeholder for any of the previously mentioned information variables, and $dependent$ as a placeholder for either $R$, $Vol$ or $AbnVlm$.
 \\\\
 \begin{equation}
-    dependent_t = c_1\,dependent_{t-1}
+\label{eqOneDependent}
+    dependent_t = c_0 + c_1\,dependent_{t-1}
 \end{equation}
 \begin{equation}
-    dependent_t = c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}
+    dependent_t = c_0 + c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}
 \end{equation}
 \begin{equation}
 \begin{split}
-    dependent_t = c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}+c_4\,R_{t-1}^m\\
+    dependent_t = c_0 + c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}+c_4\,R_{t-1}^m\\
     +c_5\,\sigma_{t-1}^m+c_6\,AbnVlm_{t-1}^m
 \end{split}
 \end{equation}
 
 \begin{equation}
 \begin{split}
-    dependent_t = c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}+c_4\,R_{t-1}^m\\
-    +c_5\,\sigma_{t-1}^m+c_6\,AbnVlm_{t-1}^m+c_7\,inf\_var_{t-1}
+    dependent_t = c_0 +  c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}+c_4\,R_{t-1}^m\\
+    +c_5\,\sigma_{t-1}^m+c_6\,AbnVlm_{t-1}^m+c_7\,info\_var_{t-1}
 \end{split}
 \end{equation}
 
 \begin{equation}
+\label{eqAllVariables}
 \begin{split}
-    dependent_t = c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}+c_4\,R_{t-1}^m\\
+    dependent_t = c_0 +  c_1\,R_{t-1}+c_2\,\sigma_{t-1}+c_3\,AbnVlm_{t-1}+c_4\,R_{t-1}^m\\
     +c_5\,\sigma_{t-1}^m+c_6\,AbnVlm_{t-1}^m+c_7\,AbnNws_{t-1}\\
     +c_8\,AbnWik_{t-1}+c_9\,AbnTrend_{concept, t-1}\\
     +c_{10}\,AbnTrend_{name, t-1}+c_{11}\,AbnTrend_{ticker, t-1}
@@ -36,55 +38,52 @@ The following model specifications are used, where $M(x)$ is defined as the mont
 \end{equation}
 
 \subsection{Regression results}
-The models show high predictability in volatility, and volume. The volatility models have higher values of $R^2$, as it is not median normalized. This is in line with the well known autoregressive structures volatility. Both volume and volatility models also see notable increases in $R^2$ when adding information variables to the regressions. The increase in adjusted $R^2$ is approximately $2\%$ for volatility and $10\%$ for volume, when adding ticker trend to the regression. 
+The models show high predictability in volatility and volume. The volatility models have higher values of $R^2$. This is expected as it is not normalized on lagged values as the other variables. Both volume and volatility models see notable increases in $R^2$ when adding information variables to the regressions. The increase in adjusted $R^2$ is approximately $2\%$ for volatility and $10\%$ for volume, when adding ticker trend to the regression. 
 \\\\
-Return is, as expected, far harder to predict. All return models have low $R^2$ values independent of specifications. This is in line with \cite{engelberg}, \cite{neri} and \cite{bijl}. There does seem to be a relationship between news count and Wikipedia views, and next weeks return, despite low values of $R^2$. News articles predict lower return, in line with \textcolor{red}{\cite{aquadi} who find that news predict lower return in the period 2-10 days after their release}. Increases in Wikipedia views indicates higher returns in the next week. This is contrary to previous results obtained by \cite{moat}, who observe decreased stock returns in periods following an increase in Wikipedia views between 2007 and 2012.
-\\\\
-We would like to note that our conclusions are robust to changes in model specification.
+Return is, as expected, far harder to predict. All return models have low $R^2$ values independent of specifications. This is in line with \cite{engelberg}, \cite{neri} and \cite{bijl}. There does seem to be a relationship between news count and Wikipedia views, and next weeks return, despite low values of $R^2$. News articles predict lower return, in line with \cite{aquadi} who find that news predict lower return in the period 2-10 days after their release. Increases in Wikipedia views indicates higher returns in the next week. This is contrary to previous results obtained by \cite{moat}, who observe decreased stock returns in periods following an increase in Wikipedia views between 2007 and 2012.
 \\\\
 We also notice that information variables affect volume and volatility similarly.  Whenever an information variable is significant for both volatility and volume, it has the same sign in both regressions.
 \\\\
 Our results are consistent with \cite{engelberg} who find that increases in ticker trend predicts increases in stock returns on data from June 2006 to June 2008. Our findings are also consistent with the results of \cite{vlastakis} who find that increases in Google Trend searches on company names predict increases in volatility and volume. 
 
-\subsection{Variable performance}
-We now turn our attention to the performance of individual variables. Our results indicate that the advantages of including more than one good information variable are small. This holds even though the correlation between most of the variables are low. For volatility, $R^2$ only increases with 1.2\% when using 4 variables instead of only ticker trend. These results might indicate that the information content in the information variables is similar, and that low correlations are induced by factors unrelated to financial markets. 
+\subsection{Information variable performance}
+We now turn our attention to the performance of individual information variables. Our results indicate that the advantages of including more than one good information variable are small. This holds even though the correlation between most of the variables are low. For volatility, $R^2$ only increases with 1.2\% when using 4 information variables instead of only ticker trend. These results indicate that the information content in the information variables is similar, and that low correlations are induced by factors unrelated to financial markets. 
 \\\\
-We note that ticker trends outperforms all other information variables in regression models predicting volatility and volume. Models using ticker trend consistently have the highest significance levels and $R^2$ values. This result supports the argument of \cite{engelberg} and \cite{joseph}. They suggest that ticker trend is more relevant for predicting trends in the stock market, as it is a more targeted measure of investor attention than concept trend and name trend. The same argument might explain why ticker trend outperforms Wikipedia views, as this is a measure of general and not investor specific attention. This result also support the assertion made by \cite{engelberg}, that Google Trends provides a more direct measure of investor attention than information supply variables and that it should therefore contain more predictive power. 
+We note that ticker trend outperforms all other information variables in the regression models predicting volatility and volume. Models using ticker trend consistently have the highest significance levels and $R^2$ values. This result supports the argument of \cite{engelberg} and \cite{joseph}. They suggest that ticker trend is more relevant for predicting trends in the stock market, as it is a more targeted measure of investor attention than concept trend and search term trend. The same argument might explain why ticker trend outperforms Wikipedia views, as this is a measure of general and not investor specific attention. This result also supports the theoretical assertion made by \cite{engelberg}, that Google Trends provides a more direct measure of investor attention than information supply variables and that it should therefore contain more predictive power. 
 \\\\
-For returns, models using ticker trend has the highest $R^2$ values, but ticker trend coefficients are less significant than Wikipedia views or news count. As the overall value and the difference in $R^2$ is small it is hard to make any conclusions about which variable to employ for return predictions. Even though ticker trend performs better it might be caused by random correlation. As all variables perform comparably and arguments have been made to support the influence of all three variables we cannot make any clear recommendation on which one to use. 
+For returns, models using ticker trend has the highest $R^2$ values, but ticker trend coefficients are less significant than Wikipedia views or news count. As the overall value and the difference in $R^2$ is small, it is hard to make any conclusions about which information variable to employ for return predictions. Even though ticker trend performs better it might be caused by random correlation. As all variables perform comparably and arguments can been made to support the influence of all three variables, we cannot make any clear recommendation on which one to use. 
 \\\\
-Although ticker trend performs best in our regressions, we also compare company name trend and concept trend, as several papers argue that a broader measure of information demand might be useful. Concept trend consistently outperforms name trend. Models using concept trend has larger coefficients, higher $R^2$, and \textcolor{red}{ higher significance. This holds for all dependent variables.} We find this quite intuitive as concept trend extends many of the positive aspects of name trend, while potentially reducing noise and sampling bias. When using name trend one has to decide on one particular spelling of the company name. One could imagine that there is some correlation between how people spell a company name, and what information they are searching for. For instance consumers looking for JPMorgan might spell out the entire name, while investors, who are more familiar with the company might use the abbreviation JPM when searching. When using concept trend, Google automatically aggregates potential spellings and abbreviations of the company name. This makes concept trend a broader measure of attention, and might also reduce noise as the concept trend score is calculated from a larger pool of searches than name trend.
+Although ticker trend performs best in our regressions, we also compare search term trend and concept trend, as several papers argue that a broader measure of information demand might be useful. Concept trend consistently outperforms search term trend. Models using concept trend has larger coefficients, higher $R^2$ and higher significance. This holds for all dependent variables. We find this quite intuitive as concept trend extends many of the positive aspects of search term trend, while potentially reducing noise and sampling bias. When using search term trend one has to decide on one particular spelling of the company name. One could imagine that there is some correlation between how people spell a company name, and what information they are searching for. For instance, consumers looking for JPMorgan might spell out the entire name, while investors, who are more familiar with the company might use the abbreviation JPM when searching. When choosing a particular spelling one risks introducing sampling bias. When using concept trend, Google automatically aggregates potential spellings and abbreviations of the company name. This makes concept trend a broader measure of attention, and might also reduce noise as the concept trend score is calculated from a larger pool of searches than search term trend.
 
 
 
 \begin{sidewaystable}[!htbp] \centering 
-  \caption{Return models} 
+  \caption{Fixed effect models with return as dependent variable, given by Equation \ref{eqOneDependent}-\ref{eqAllVariables}.} 
   \label{model:return} 
 \footnotesize 
 \begin{tabular}{@{\extracolsep{0pt}}lD{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} }
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{10}{c}{\textit{Dependent variable:}} \\ 
+ & \multicolumn{10}{c}{\textit{Dependent variable: $R_{t+1}$}} \\ 
 \cline{2-11} 
-\\[-1.8ex] & \multicolumn{10}{c}{log\_return} \\ 
 \\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} & \multicolumn{1}{c}{(9)} & \multicolumn{1}{c}{(10)}\\ 
 \hline \\[-1.8ex] 
- log\_return\_l1 & -0.038^{**} & -0.038^{**} & -0.034^{*} & -0.034^{*} & -0.034^{*} & -0.035^{*} & -0.034^{*} & -0.029 & -0.029 & -0.034^{*} \\ 
-  log\_w\_vol\_l1 &  & 0.007 & 0.005 & 0.007 & 0.006 & 0.003 & 0.003 & 0.020 & 0.016 & 0.012 \\ 
-  logmedian\_VOLUME\_l1 &  & -0.043 & -0.043 & -0.027 & -0.043 & -0.069 & -0.068 & 0.040 & 0.011 & -0.004 \\ 
-  logmedian\_concept\_trend\_l1 &  &  &  & -0.047 &  &  &  &  & -0.127 & -0.148 \\ 
-  logmedian\_search\_term\_trend\_l1 &  &  &  &  & -0.001 &  &  &  & 0.080 & 0.080 \\ 
-  logmedian\_ticker\_trend\_l1 &  &  &  &  &  & 0.058 &  &  & 0.065 & 0.026 \\ 
-  logmedian\_wiki\_l1 &  &  &  &  &  &  & 0.118^{*} &  & 0.140^{**} & 0.206^{**} \\ 
-  logmedian\_news\_count\_l1 &  &  &  &  &  &  &  & -0.026 & -0.030^{*} & -0.031 \\ 
-  m\_exc\_log\_return &  &  & -0.009 & -0.008 & -0.009 & -0.010 & -0.010 & -0.010 & -0.011 & -0.012 \\ 
-  m\_exc\_log\_w\_vol &  &  & 0.002 & 0.001 & 0.002 & 0.006 & 0.003 & -0.007 & -0.002 & 0.002 \\ 
-  m\_exc\_logmedian\_VOLUME &  &  & -0.002 & -0.001 & -0.002 & -0.002 & -0.004 & -0.027 & -0.024 & -0.033 \\ 
-  m\_exc\_logmedian\_news\_count &  &  &  &  &  &  &  &  &  & -0.001 \\ 
-  m\_exc\_logmedian\_wiki &  &  &  &  &  &  &  &  &  & -0.052 \\ 
-  m\_exc\_logmedian\_concept\_trend &  &  &  &  &  &  &  &  &  & 0.013 \\ 
-  m\_exc\_logmedian\_search\_term\_trend &  &  &  &  &  &  &  &  &  & -0.001 \\ 
-  m\_exc\_logmedian\_ticker\_trend &  &  &  &  &  &  &  &  &  & 0.034 \\ 
+ $R_t$ & -0.038^{**} & -0.038^{**} & -0.034^{*} & -0.034^{*} & -0.034^{*} & -0.035^{*} & -0.034^{*} & -0.029 & -0.029 & -0.034^{*} \\ 
+  $\sigma_t$  & 0.007 & 0.005 & 0.007 & 0.006 & 0.003 & 0.003 & 0.020 & 0.016 & 0.012 \\ 
+  $AbnVlm_t$ &  & -0.043 & -0.043 & -0.027 & -0.043 & -0.069 & -0.068 & 0.040 & 0.011 & -0.004 \\ 
+  $AbnTrend_{concept,t}$ &  &  &  & -0.047 &  &  &  &  & -0.127 & -0.148 \\ 
+  $AbnTrend_{search,t}$ &  &  &  &  & -0.001 &  &  &  & 0.080 & 0.080 \\ 
+  $AbnTrend_{ticker,t}$ &  &  &  &  &  & 0.058 &  &  & 0.065 & 0.026 \\ 
+  $AbnWiki_{t}$ &  &  &  &  &  &  & 0.118^{*} &  & 0.140^{**} & 0.206^{**} \\ 
+  $AbnNws_{t}$ &  &  &  &  &  &  &  & -0.026 & -0.030^{*} & -0.031 \\ 
+  $R^{m}_{t}$ &  &  & -0.009 & -0.008 & -0.009 & -0.010 & -0.010 & -0.010 & -0.011 & -0.012 \\ 
+  $\sigma^{m}_{t}$ &  &  & 0.002 & 0.001 & 0.002 & 0.006 & 0.003 & -0.007 & -0.002 & 0.002 \\ 
+  $AbnVlm^{m}_{t}$ &  &  & -0.002 & -0.001 & -0.002 & -0.002 & -0.004 & -0.027 & -0.024 & -0.033 \\ 
+  $AbnNws^{m}_{t}$ &  &  &  &  &  &  &  &  &  & -0.001 \\ 
+  $AbnWiki^{m}_{t}$ &  &  &  &  &  &  &  &  &  & -0.052 \\ 
+  $AbnTrend^{m}_{concept,t}$ &  &  &  &  &  &  &  &  &  & 0.013 \\ 
+  $AbnTrend^{m}_{search,t}$ &  &  &  &  &  &  &  &  &  & -0.001 \\ 
+  $AbnTrend^{m}_{ticker,t}$ &  &  &  &  &  &  &  &  &  & 0.034 \\ 
  \hline \\[-1.8ex] 
 \hline 
 \hline \\[-1.8ex] 
@@ -93,40 +92,40 @@ R$^{2}$ & \multicolumn{1}{c}{0.001} & \multicolumn{1}{c}{0.001} & \multicolumn{1
 Adjusted R$^{2}$ & \multicolumn{1}{c}{-0.026} & \multicolumn{1}{c}{-0.026} & \multicolumn{1}{c}{-0.026} & \multicolumn{1}{c}{-0.026} & \multicolumn{1}{c}{-0.027} & \multicolumn{1}{c}{-0.026} & \multicolumn{1}{c}{-0.026} & \multicolumn{1}{c}{-0.028} & \multicolumn{1}{c}{-0.027} & \multicolumn{1}{c}{-0.028} \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{10}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+& \multicolumn{10}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular}  
 \end{sidewaystable} 
 
 
 
 \begin{sidewaystable}[!htbp] \centering 
-  \caption{Volatility models} 
+  \caption{Fixed effect models with volatility as dependent variable, given by Equation \ref{eqOneDependent}-\ref{eqAllVariables}.} 
   \label{model:volatility} 
 \footnotesize 
 \begin{tabular}{@{\extracolsep{0pt}}lD{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} }   
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{10}{c}{\textit{Dependent variable:}} \\ 
+ & \multicolumn{10}{c}{\textit{Dependent variable: $\sigma_{t+1}$}} \\ 
 \cline{2-11} 
 \\[-1.8ex] & \multicolumn{10}{c}{log\_w\_vol} \\ 
 \\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} & \multicolumn{1}{c}{(9)} & \multicolumn{1}{c}{(10)}\\ 
 \hline \\[-1.8ex] 
- log\_return\_l1 &  & 0.004 & 0.010^{*} & 0.009^{*} & 0.009^{*} & 0.006 & 0.010^{*} & 0.008 & 0.004 & 0.006 \\ 
-  log\_w\_vol\_l1 & 0.740^{***} & 0.709^{***} & 0.881^{***} & 0.876^{***} & 0.877^{***} & 0.871^{***} & 0.880^{***} & 0.894^{***} & 0.882^{***} & 0.864^{***} \\ 
-  logmedian\_VOLUME\_l1 &  & 0.517^{***} & 0.431^{***} & 0.360^{***} & 0.389^{***} & 0.324^{***} & 0.417^{***} & 0.465^{***} & 0.330^{***} & 0.327^{***} \\ 
-  logmedian\_concept\_trend\_l1 &  &  &  & 0.207^{***} &  &  &  &  & 0.145^{***} & 0.102 \\ 
-  logmedian\_search\_term\_trend\_l1 &  &  &  &  & 0.180^{***} &  &  &  & 0.002 & 0.007 \\ 
-  logmedian\_ticker\_trend\_l1 &  &  &  &  &  & 0.235^{***} &  &  & 0.205^{***} & 0.203^{***} \\ 
-  logmedian\_wiki\_l1 &  &  &  &  &  &  & 0.068 &  & -0.027 & -0.096^{***} \\ 
-  logmedian\_news\_count\_l1 &  &  &  &  &  &  &  & 0.007 & 0.0004 & 0.004 \\ 
-  m\_exc\_log\_return &  &  & -0.013^{*} & -0.016^{**} & -0.014^{**} & -0.018^{***} & -0.014^{*} & -0.009 & -0.016^{**} & -0.017^{***} \\ 
-  m\_exc\_log\_w\_vol &  &  & -0.208^{***} & -0.204^{***} & -0.204^{***} & -0.192^{***} & -0.207^{***} & -0.212^{***} & -0.196^{***} & -0.186^{***} \\ 
-  m\_exc\_logmedian\_VOLUME &  &  & -0.112^{***} & -0.118^{***} & -0.111^{***} & -0.111^{***} & -0.113^{***} & -0.132^{***} & -0.136^{***} & -0.137^{***} \\ 
-  m\_exc\_logmedian\_news\_count &  &  &  &  &  &  &  &  &  & -0.012 \\ 
-  m\_exc\_logmedian\_wiki &  &  &  &  &  &  &  &  &  & 0.032^{**} \\ 
-  m\_exc\_logmedian\_concept\_trend &  &  &  &  &  &  &  &  &  & 0.032 \\ 
-  m\_exc\_logmedian\_search\_term\_trend &  &  &  &  &  &  &  &  &  & 0.002 \\ 
-  m\_exc\_logmedian\_ticker\_trend &  &  &  &  &  &  &  &  &  & 0.008 \\ 
+ $R_t$ &  & 0.004 & 0.010^{*} & 0.009^{*} & 0.009^{*} & 0.006 & 0.010^{*} & 0.008 & 0.004 & 0.006 \\ 
+  $\sigma_t$ & 0.740^{***} & 0.709^{***} & 0.881^{***} & 0.876^{***} & 0.877^{***} & 0.871^{***} & 0.880^{***} & 0.894^{***} & 0.882^{***} & 0.864^{***} \\ 
+  $AbnVlm_t$ &  & 0.517^{***} & 0.431^{***} & 0.360^{***} & 0.389^{***} & 0.324^{***} & 0.417^{***} & 0.465^{***} & 0.330^{***} & 0.327^{***} \\ 
+  $AbnTrend_{concept,t}$ &  &  &  & 0.207^{***} &  &  &  &  & 0.145^{***} & 0.102 \\ 
+  $AbnTrend_{search,t}$ &  &  &  &  & 0.180^{***} &  &  &  & 0.002 & 0.007 \\ 
+  $AbnTrend_{ticker,t}$ &  &  &  &  &  & 0.235^{***} &  &  & 0.205^{***} & 0.203^{***} \\ 
+  $AbnWiki_{t}$ &  &  &  &  &  &  & 0.068 &  & -0.027 & -0.096^{***} \\ 
+  $AbnNws_{t}$ &  &  &  &  &  &  &  & 0.007 & 0.0004 & 0.004 \\ 
+  $R^{m}_{t}$ &  &  & -0.013^{*} & -0.016^{**} & -0.014^{**} & -0.018^{***} & -0.014^{*} & -0.009 & -0.016^{**} & -0.017^{***} \\ 
+  $\sigma^{m}_{t}$ &  &  & -0.208^{***} & -0.204^{***} & -0.204^{***} & -0.192^{***} & -0.207^{***} & -0.212^{***} & -0.196^{***} & -0.186^{***} \\ 
+  $AbnVlm^{m}_{t}$ &  &  & -0.112^{***} & -0.118^{***} & -0.111^{***} & -0.111^{***} & -0.113^{***} & -0.132^{***} & -0.136^{***} & -0.137^{***} \\ 
+  $AbnNws^{m}_{t}$ &  &  &  &  &  &  &  &  &  & -0.012 \\ 
+  $AbnWiki^{m}_{t}$ &  &  &  &  &  &  &  &  &  & 0.032^{**} \\ 
+  $AbnTrend^{m}_{concept,t}$ &  &  &  &  &  &  &  &  &  & 0.032 \\ 
+  $AbnTrend^{m}_{search,t}$ &  &  &  &  &  &  &  &  &  & 0.002 \\ 
+  $AbnTrend^{m}_{ticker,t}$ &  &  &  &  &  &  &  &  &  & 0.008 \\ 
  \hline \\[-1.8ex] 
 \hline 
 \hline \\[-1.8ex]
@@ -135,47 +134,74 @@ R$^{2}$ & \multicolumn{1}{c}{0.549} & \multicolumn{1}{c}{0.560} & \multicolumn{1
 Adjusted R$^{2}$ & \multicolumn{1}{c}{0.537} & \multicolumn{1}{c}{0.548} & \multicolumn{1}{c}{0.565} & \multicolumn{1}{c}{0.574} & \multicolumn{1}{c}{0.571} & \multicolumn{1}{c}{0.580} & \multicolumn{1}{c}{0.565} & \multicolumn{1}{c}{0.577} & \multicolumn{1}{c}{0.596} & \multicolumn{1}{c}{0.595} \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{10}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+& \multicolumn{10}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{sidewaystable} 
 
 
 \begin{sidewaystable}[!htbp] \centering 
-  \caption{Volume models new} 
+  \caption{Fixed effect models with volume as dependent variable, given by Equation \ref{eqOneDependent}-\ref{eqAllVariables}.} 
   \label{model:volume} 
 \footnotesize 
 \begin{tabular}{@{\extracolsep{0pt}}lD{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} D{.}{.}{3} }  
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{10}{c}{\textit{Dependent variable:}} \\ 
+ & \multicolumn{10}{c}{\textit{Dependent variable: $AbnVlm_{t+1}$}} \\ 
 \cline{2-11} 
-\\[-1.8ex] & \multicolumn{10}{c}{logmedian\_VOLUME} \\ 
 \\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} & \multicolumn{1}{c}{(9)} & \multicolumn{1}{c}{(10)}\\ 
 \hline \\[-1.8ex] 
- log\_return\_l1 &  & -0.007^{***} & -0.004^{**} & -0.004^{**} & -0.004^{**} & -0.005^{***} & -0.004^{**} & -0.005^{**} & -0.007^{***} & -0.007^{***} \\ 
-  log\_w\_vol\_l1 &  & -0.028^{***} & -0.009^{*} & -0.011^{**} & -0.011^{**} & -0.014^{***} & -0.009^{*} & -0.009 & -0.015^{***} & -0.014^{***} \\ 
-  logmedian\_VOLUME\_l1 & 0.351^{***} & 0.387^{***} & 0.337^{***} & 0.302^{***} & 0.316^{***} & 0.282^{***} & 0.334^{***} & 0.356^{***} & 0.289^{***} & 0.283^{***} \\ 
-  logmedian\_concept\_trend\_l1 &  &  &  & 0.101^{***} &  &  &  &  & 0.078^{***} & 0.084^{***} \\ 
-  logmedian\_search\_term\_trend\_l1 &  &  &  &  & 0.085^{***} &  &  &  & -0.001 & 0.003 \\ 
-  logmedian\_ticker\_trend\_l1 &  &  &  &  &  & 0.119^{***} &  &  & 0.106^{***} & 0.118^{***} \\ 
-  logmedian\_wiki\_l1 &  &  &  &  &  &  & 0.011 &  & -0.035^{***} & -0.037^{***} \\ 
-  logmedian\_news\_count\_l1 &  &  &  &  &  &  &  & -0.001 & -0.004^{**} & -0.004 \\ 
-  m\_exc\_log\_return &  &  & -0.007^{**} & -0.008^{***} & -0.007^{***} & -0.009^{***} & -0.007^{**} & -0.006^{*} & -0.009^{***} & -0.009^{***} \\ 
-  m\_exc\_log\_w\_vol &  &  & -0.029^{***} & -0.027^{***} & -0.028^{***} & -0.021^{***} & -0.029^{***} & -0.026^{***} & -0.018^{***} & -0.019^{***} \\ 
-  m\_exc\_logmedian\_VOLUME &  &  & 0.014^{*} & 0.011 & 0.014^{*} & 0.014^{**} & 0.014^{*} & 0.010 & 0.008 & 0.017^{***} \\ 
-  m\_exc\_logmedian\_news\_count &  &  &  &  &  &  &  &  &  & -0.0003 \\ 
-  m\_exc\_logmedian\_wiki &  &  &  &  &  &  &  &  &  & 0.004 \\ 
-  m\_exc\_logmedian\_concept\_trend &  &  &  &  &  &  &  &  &  & -0.005 \\ 
-  m\_exc\_logmedian\_search\_term\_trend &  &  &  &  &  &  &  &  &  & -0.003 \\ 
-  m\_exc\_logmedian\_ticker\_trend &  &  &  &  &  &  &  &  &  & -0.010^{***} \\
+ $R_t$ &  & -0.007^{***} & -0.004^{**} & -0.004^{**} & -0.004^{**} & -0.005^{***} & -0.004^{**} & -0.005^{**} & -0.007^{***} & -0.007^{***} \\ 
+  $\sigma_t$ &  & -0.028^{***} & -0.009^{*} & -0.011^{**} & -0.011^{**} & -0.014^{***} & -0.009^{*} & -0.009 & -0.015^{***} & -0.014^{***} \\ 
+  $AbnVlm_t$ & 0.351^{***} & 0.387^{***} & 0.337^{***} & 0.302^{***} & 0.316^{***} & 0.282^{***} & 0.334^{***} & 0.356^{***} & 0.289^{***} & 0.283^{***} \\ 
+  $AbnTrend_{concept,t}$ &  &  &  & 0.101^{***} &  &  &  &  & 0.078^{***} & 0.084^{***} \\ 
+  $AbnTrend_{search,t}$ &  &  &  &  & 0.085^{***} &  &  &  & -0.001 & 0.003 \\ 
+  $AbnTrend_{ticker,t}$ &  &  &  &  &  & 0.119^{***} &  &  & 0.106^{***} & 0.118^{***} \\ 
+  $AbnWiki_{t}$ &  &  &  &  &  &  & 0.011 &  & -0.035^{***} & -0.037^{***} \\ 
+  $AbnNws_{t}$ &  &  &  &  &  &  &  & -0.001 & -0.004^{**} & -0.004 \\ 
+  $R^{m}_{t}$ &  &  & -0.007^{**} & -0.008^{***} & -0.007^{***} & -0.009^{***} & -0.007^{**} & -0.006^{*} & -0.009^{***} & -0.009^{***} \\ 
+  $\sigma^{m}_{t}$ &  &  & -0.029^{***} & -0.027^{***} & -0.028^{***} & -0.021^{***} & -0.029^{***} & -0.026^{***} & -0.018^{***} & -0.019^{***} \\ 
+  $AbnVlm^{m}_{t}$ &  &  & 0.014^{*} & 0.011 & 0.014^{*} & 0.014^{**} & 0.014^{*} & 0.010 & 0.008 & 0.017^{***} \\ 
+  $AbnNws^{m}_{t}$ &  &  &  &  &  &  &  &  &  & -0.0003 \\ 
+  $AbnWiki^{m}_{t}$ &  &  &  &  &  &  &  &  &  & 0.004 \\ 
+  $AbnTrend^{m}_{concept,t}$ &  &  &  &  &  &  &  &  &  & -0.005 \\ 
+  $AbnTrend^{m}_{search,t}$ &  &  &  &  &  &  &  &  &  & -0.003 \\ 
+  $AbnTrend^{m}_{ticker,t}$ &  &  &  &  &  &  &  &  &  & -0.010^{***} \\
 Observations & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,983} & \multicolumn{1}{c}{5,598} & \multicolumn{1}{c}{5,598} & \multicolumn{1}{c}{5,314} \\ 
 R$^{2}$ & \multicolumn{1}{c}{0.123} & \multicolumn{1}{c}{0.142} & \multicolumn{1}{c}{0.149} & \multicolumn{1}{c}{0.196} & \multicolumn{1}{c}{0.180} & \multicolumn{1}{c}{0.237} & \multicolumn{1}{c}{0.150} & \multicolumn{1}{c}{0.155} & \multicolumn{1}{c}{0.268} & \multicolumn{1}{c}{0.272} \\ 
 Adjusted R$^{2}$ & \multicolumn{1}{c}{0.099} & \multicolumn{1}{c}{0.118} & \multicolumn{1}{c}{0.126} & \multicolumn{1}{c}{0.173} & \multicolumn{1}{c}{0.157} & \multicolumn{1}{c}{0.215} & \multicolumn{1}{c}{0.126} & \multicolumn{1}{c}{0.130} & \multicolumn{1}{c}{0.246} & \multicolumn{1}{c}{0.249} \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{10}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+& \multicolumn{10}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{sidewaystable} 
 
 
-\subsection{causality}
+\subsection{Causality}
+We check for causal relationships between the information demand and supply variables. We use a Granger causality test with 4 lags (one month). We run individual tests for each company, and count the number of significant relationships. The results are shown in table \ref{tab:gr_caus_weekly}. We see indications of both concept, ticker and search term trend causing supply (news count), but see no causal relationship for Wikipedia views. We also see a weak indication of supply leading demand. The causal relationship can be seen as further evidence that Google Trends is the most important information variable and that using it as the only information variables is justifiable. Our results are in line with \cite{engelberg}, who observe Google Trends leading a news article variable However, the results do not match \cite{vlastakis}, who observe a bidirectional causality between information supply and demand. 
+
+\begin{table}[]
+\centering
+\captionsetup{justification=centering}
+
+\caption{Count of companies with significant Granger causality between information demand variables and news count.}
+\label{tab:gr_caus_weekly}
+\resizebox{\textwidth}{!}{%
+
+\begin{tabular}{lllll}
+\hline
+ & \multicolumn{2}{l}{Demand causing news count} & \multicolumn{2}{l}{News count causing demand} \\
+ & 5\% sign &  10\% sign &  5\% sign &  10\% sign \\ \cline{2-5} 
+Wikipedia & 7 & 16 & 7 & 13 \\
+Concept trend & 40 & 48 & 12 & 15 \\
+Search term trend & 38 & 44 & 10 & 14 \\
+Ticker trend & 35 & 41 & 9 & 19 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\subsection{Robustness}
+As a final robustness check we rerun the models using generalized methods of moments (GMM). GMM models allows us to look at the data from a different perspective, and can be specified to remove endogenity concerns even in datasets with no good external instrumental variables. There are several moments that allows GMM model to deliver robust results. Instead of maximizing variance, the GMM methods tries to make all the exogenous variables orthogonal to the error. In classic OLS models, orthogonality (/non-correlation) between regressors and the error is assumed. In GMM it is forced through the optimization.
+
+The GMM approach allows us to handle the endogenity concerns, in situations where we do not have a strong exogenous instrumental variable available, and therefore cannot use classic two stage least squares methods. 
+
+OLS is a subset of gmm models, where we happen to have the same number of regressors as restrictors 
